@@ -60,3 +60,12 @@ if(contactFab&&contactMenu){
   document.addEventListener("click",()=>setContactMenu(false));
   document.addEventListener("keydown",e=>{if(e.key==="Escape")setContactMenu(false)});
 }
+
+const galleryPreview=document.querySelector("[data-gallery]");
+if(galleryPreview&&"IntersectionObserver" in window&&!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+  galleryPreview.classList.add("gallery-will-animate");
+  const galleryObserver=new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting){galleryPreview.classList.add("gallery-visible");galleryObserver.disconnect()}
+  },{threshold:.18,rootMargin:"0px 0px -8% 0px"});
+  galleryObserver.observe(galleryPreview);
+}
