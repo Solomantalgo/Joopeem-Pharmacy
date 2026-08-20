@@ -8,7 +8,7 @@
 
 Build a one-page (or lightly multi-section) marketing website for **Jopeem Pharmacy and Health Care Centre Ltd**, a pharmacy with two branches in Kampala, Uganda.
 
-This is a **200,000 UGX package tier** — keep the feature set intentionally lean. Don't add anything beyond what's listed in Section 3. Do not add a shopping cart, checkout flow, flash-deal popups, location-detection prompts, or fabricated customer testimonials — those belong to a higher package tier and none were requested for this build.
+This build has been expanded beyond the original **200,000 UGX package tier**. Include the requested shopping cart, checkout enquiry flow, and promotional/branch-selection popups. Do not fabricate product prices, discounts, customer testimonials, or business facts; checkout must clearly submit an order enquiry for price and availability confirmation through WhatsApp.
 
 Despite the limited feature set, the UI must be **modern and visually polished** — this client's site should look and feel premium, not stripped-down. Treat visual quality as non-negotiable even though feature count is capped.
 
@@ -20,7 +20,7 @@ Reference: `https://vita-care-five.solomantalgo.com/` (a prior demo by the same 
 
 Use it only as a loose structural/tonal reference (hero → catalog → about → gallery → contact → footer flow, WhatsApp-first contact pattern). Concretely improve on it:
 
-- **Drop**: the cart/checkout system, the countdown flash-deal popup, the location-share popup, and the fabricated star-rating testimonials block (none of that is in scope here, and testimonials should never be fabricated for a real client).
+- **Adapt**: include a lightweight cart and WhatsApp checkout enquiry, plus a truthful free-consultation popup and manual branch-selection popup. Do not request browser geolocation or fabricate flash-deal pricing. Keep the fabricated star-rating testimonials block excluded.
 - **Keep the spirit of**: WhatsApp as the primary contact/booking mechanism, a clean catalog browsing experience, a confident hero section.
 - **Raise the bar on**: visual polish, typography, spacing/rhythm, and making the brand colors (not a generic template palette) feel intentional throughout.
 
@@ -28,7 +28,7 @@ Use it only as a loose structural/tonal reference (hero → catalog → about �
 
 ---
 
-## 3. Required Sections (Scope Ceiling — Nothing Beyond This List)
+## 3. Required Sections
 
 1. **Hero** — pharmacy name, tagline, a strong CTA to WhatsApp, branch highlight (main branch hours/location)
 2. **Services & Pricing** — pull from `source-data.md`. Where a service has no price listed, do not invent one — display it without a price or with "Enquire" rather than a fabricated number.
@@ -39,6 +39,9 @@ Use it only as a loose structural/tonal reference (hero → catalog → about �
 7. **WhatsApp Booking/Contact** — primary action throughout the site, wired to **0788 570 123** (Nyanama, main branch)
 8. **Social Media Links** — footer icons/links. Handles not yet provided by the client — implement the UI slots (Facebook/Instagram/WhatsApp icons) pointing to placeholder `#` links, clearly marked in code comments as `TODO: awaiting client social handles`, so they're easy to wire up later.
 9. **Mobile-first responsive design** — this audience is majority-mobile; design mobile-first, then scale up.
+10. **Cart** — allow customers to add catalog items, change quantity, and remove items. Prices remain pending and no monetary total is shown.
+11. **Checkout** — collect customer name, phone, preferred branch, and optional notes, then create a WhatsApp order enquiry for confirmation of price and availability.
+12. **Popups** — a dismissible free-consultation promotion and a manual preferred-branch selector. Persist dismissal/selection locally to avoid repeated interruption.
 
 ---
 
@@ -68,7 +71,7 @@ The stock data has 7,291 SKUs across 5 categories (Medicine, Sundries, Cosmetics
 **Do not render Medicine (6,817 items) as a flat static list.** Instead:
 - Show it as a summary stat card ("6,800+ medicines in stock") with the dosage-form breakdown as a visual (chart or tag cloud), plus a clear "Ask us on WhatsApp" CTA for availability of a specific medicine.
 - The other four categories (Sundries, Cosmetics, Diagnostics, Medical Devices — all under 220 items each) can be browsed properly: category → sub-group (as grouped in `source-data.md`) → item list. Keep this lightweight (accordion/tabs/filterable grid), not a full e-commerce catalog with cart — items are for browsing/awareness, not online ordering, in this package tier.
-- Every catalog entry should route back to the WhatsApp contact button for enquiries, since there's no cart in this tier.
+- Every catalog entry can be added to the enquiry cart or sent directly to WhatsApp. The checkout is an enquiry handoff, not an online payment flow, because product prices are not supplied.
 
 ---
 
