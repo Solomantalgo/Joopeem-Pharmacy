@@ -134,7 +134,7 @@
 
         <div class="services-catalog-bridge">
           <div><p class="eyebrow">Medicines &amp; health products</p><h3>Looking for a medicine or health product?</h3><p>Explore our medicine range, medical supplies, diagnostics and personal care products, or ask our team to confirm availability.</p></div>
-          <div class="services-catalog-actions"><a class="button button-dark" href="#catalog">Browse products</a><a class="button button-ghost wa-link" href="#">Ask about a medicine</a></div>
+          <div class="services-catalog-actions"><a class="button button-dark" href="#catalog">Browse products</a><a class="button button-ghost medicine-enquiry-trigger" href="#">Ask about a medicine</a></div>
         </div>
       </div>
     </section>
@@ -150,7 +150,7 @@
             <p class="eyebrow light">Medicines</p>
             <h3><strong>6,800+</strong> medicines available</h3>
             <p>Looking for a particular medicine? Tell our pharmacy team the medicine name and we’ll help confirm availability.</p>
-            <a class="button button-white wa-link" href="#">Ask about a medicine</a>
+            <a class="button button-white medicine-enquiry-trigger" href="#">Ask about a medicine</a>
           </div>
           <div class="medicine-finder-image"><img src="assets/images/tablets-compressed.jpg" alt="A selection of medicine tablets" loading="lazy"></div>
         </div>
@@ -319,6 +319,20 @@
   <div id="bag-toast" class="bag-toast" role="status" aria-live="polite"></div>
   <div class="drawer-backdrop" data-close-cart></div>
   <aside class="cart-drawer" aria-label="Checkout products" aria-hidden="true"><div class="drawer-head"><div><p class="eyebrow">Your checkout</p><h2>Products <span class="cart-count">0</span></h2></div><button data-close-cart aria-label="Close cart">×</button></div><div id="cart-items" class="cart-items"></div><div class="cart-foot"><p>Prices and availability are confirmed by our pharmacy team.</p><button id="start-checkout" class="button button-primary">Continue to checkout</button><button id="clear-cart" class="text-button">Clear products</button></div></aside>
+
+  <dialog id="medicine-dialog" class="medicine-dialog">
+    <button class="dialog-close" data-close-dialog aria-label="Close medicine enquiry">×</button>
+    <p class="eyebrow">Medicine availability</p>
+    <h2>Which medicine are you looking for?</h2>
+    <p>Share the medicine details and our pharmacy team will help confirm availability.</p>
+    <form id="medicine-enquiry-form">
+      <label>Medicine name<input name="medicine" required autocomplete="off" placeholder="e.g. Paracetamol"></label>
+      <label>Strength or form <span>(optional)</span><input name="form" autocomplete="off" placeholder="e.g. 500mg tablets"></label>
+      <label>Preferred branch<select name="branch"><option>Nyanama Trading Centre</option><option>Lebron Shopping Complex, Nalumunye</option></select></label>
+      <button class="button button-primary" type="submit">Send enquiry on WhatsApp ↗</button>
+      <small>Our pharmacy team will confirm availability and pricing.</small>
+    </form>
+  </dialog>
 
   <dialog id="checkout-dialog"><button class="dialog-close" data-close-dialog aria-label="Close">×</button><p class="eyebrow">Final step</p><h2>Send your order enquiry</h2><p>No payment is taken online. Our team will confirm availability and prices on WhatsApp.</p><form id="checkout-form"><label>Full name<input name="name" required autocomplete="name"></label><label>Phone number<input name="phone" type="tel" required autocomplete="tel"></label><label>Preferred branch<select name="branch"><option>Nyanama Trading Centre</option><option>Lebron Shopping Complex, Nalumunye</option></select></label><label>Notes (optional)<textarea name="notes" rows="3" placeholder="Anything our team should know?"></textarea></label><button class="button button-primary" type="submit">Send via WhatsApp ↗</button></form></dialog>
 

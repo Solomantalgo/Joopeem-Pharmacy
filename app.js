@@ -90,3 +90,25 @@ if(galleryPreview&&"IntersectionObserver" in window&&!window.matchMedia("(prefer
   },{threshold:.18,rootMargin:"0px 0px -8% 0px"});
   galleryObserver.observe(galleryPreview);
 }
+
+const medicineDialog=$("#medicine-dialog"),medicineForm=$("#medicine-enquiry-form");
+if(medicineDialog&&medicineForm){
+  $$(".medicine-enquiry-trigger").forEach(trigger=>trigger.addEventListener("click",event=>{
+    event.preventDefault();
+    medicineForm.reset();
+    medicineForm.elements.branch.value=state.branch;
+    medicineDialog.showModal();
+    requestAnimationFrame(()=>medicineForm.elements.medicine.focus());
+  }));
+  medicineForm.addEventListener("submit",event=>{
+    event.preventDefault();
+    const details=new FormData(medicineForm);
+    const medicine=String(details.get("medicine")||"").trim();
+    const medicineFormValue=String(details.get("form")||"").trim();
+    const branch=String(details.get("branch"));
+    const number=branch==="Lebron Shopping Complex, Nalumunye"?"256777094870":"256788570123";
+    const message=`Hello Jopeem Pharmacy, I would like to check medicine availability.\n\nMedicine: ${medicine}\nStrength/form: ${medicineFormValue||"Not specified"}\nPreferred branch: ${branch}\n\nPlease confirm availability and pricing.`;
+    medicineDialog.close();
+    window.open(`https://wa.me/${number}?text=${encodeURIComponent(message)}`,"_blank","noopener");
+  });
+}
