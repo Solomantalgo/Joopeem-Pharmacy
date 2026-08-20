@@ -70,7 +70,7 @@ The stock data has 7,291 SKUs across 5 categories (Medicine, Sundries, Cosmetics
 
 **Do not render Medicine (6,817 items) as a flat static list.** Instead:
 - Show it as a summary stat card ("6,800+ medicines in stock") with the dosage-form breakdown as a visual (chart or tag cloud), plus a clear "Ask us on WhatsApp" CTA for availability of a specific medicine.
-- The other four categories (Sundries, Cosmetics, Diagnostics, Medical Devices — all under 220 items each) can be browsed properly: category → sub-group (as grouped in `source-data.md`) → item list. Keep this lightweight (accordion/tabs/filterable grid), not a full e-commerce catalog with cart — items are for browsing/awareness, not online ordering, in this package tier.
+- The other four categories (Sundries, Cosmetics, Diagnostics, Medical Devices — all under 220 items each) can be browsed properly: category → sub-group (as grouped in `source-data.md`) → item list. Keep the browsing experience lightweight with tabs, search, and filters; the cart is an enquiry shortlist rather than an e-commerce payment system.
 - Every catalog entry can be added to the enquiry cart or sent directly to WhatsApp. The checkout is an enquiry handoff, not an online payment flow, because product prices are not supplied.
 
 ---
