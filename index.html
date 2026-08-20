@@ -23,7 +23,7 @@
       <a href="#services">Services</a><a href="#catalog">Catalog</a><a href="#about">About</a><a href="#contact">Contact</a>
     </nav>
     <div class="header-actions">
-      <button class="icon-button cart-button" data-open-cart aria-label="Open cart">Bag <span class="cart-count">0</span></button>
+      <button class="icon-button cart-button" data-open-cart aria-label="Open cart">Enquiry <span class="cart-count">0</span></button>
       <button class="icon-button menu-button" aria-controls="nav" aria-expanded="false">Menu</button>
     </div>
   </header>
@@ -116,27 +116,62 @@
     </section>
 
     <section class="section catalog" id="catalog">
-      <div class="catalog-intro wrap">
-        <div><p class="eyebrow">In our pharmacy</p><h2>Find what you need.</h2><p>Browse 474 health, personal care and diagnostic products. For medicines, ask our team to confirm availability.</p></div>
-        <div class="catalog-photo"></div>
+      <div class="wrap catalog-intro catalog-intro-simple">
+        <div><p class="eyebrow">In our pharmacy</p><h2>Medicines, health essentials &amp; everyday care.</h2><p>Explore our product range or contact our pharmacy team to confirm medicine availability.</p></div>
       </div>
-      <div class="wrap catalog-shell">
-        <div class="medicine-card">
-          <div><p class="eyebrow light">Medicine range</p><strong>6,800<sup>+</sup></strong><h3>medicines in stock</h3><p>Across tablets, syrups, creams, capsules, drops, injections and more.</p></div>
-          <div class="dose-cloud"><span style="--v:95%">Tablets <b>2,376</b></span><span style="--v:78%">Other forms <b>1,909</b></span><span style="--v:42%">Syrups <b>708</b></span><span style="--v:39%">Creams & gels <b>660</b></span><span style="--v:31%">Capsules <b>489</b></span></div>
-          <div class="medicine-visuals" aria-label="Medicine forms"><img src="assets/images/tablets-compressed.jpg" alt="Tablets" loading="lazy"><img src="assets/images/syrupsSuspensions-compressed.jpg" alt="Syrups and suspensions" loading="lazy"><img src="assets/images/creamsointment-compressed.jpg" alt="Creams and ointments" loading="lazy"><img src="assets/images/drops-compressed.jpg" alt="Medicine drops" loading="lazy"></div>
-          <a class="button button-white wa-link" href="#">Ask about a medicine</a>
-        </div>
-        <div class="browse-panel">
-          <div class="catalog-tabs" role="tablist" aria-label="Product categories">
-            <button class="active" data-category="Cosmetics">Cosmetics <span>168</span></button>
-            <button data-category="Sundries">Sundries <span>220</span></button>
-            <button data-category="Diagnostics">Diagnostics <span>46</span></button>
-            <button data-category="Medical Devices">Devices <span>40</span></button>
+
+      <div class="wrap medicine-range">
+        <div class="medicine-finder">
+          <div class="medicine-finder-copy">
+            <p class="eyebrow light">Medicines</p>
+            <h3><strong>6,800+</strong> medicines available</h3>
+            <p>Looking for a particular medicine? Tell our pharmacy team the medicine name and we’ll help confirm availability.</p>
+            <a class="button button-white wa-link" href="#">Ask about a medicine</a>
           </div>
-          <div class="catalog-tools"><label><span class="sr-only">Search products</span><input id="product-search" type="search" placeholder="Search products…"></label><select id="subgroup-filter" aria-label="Filter by group"><option value="all">All groups</option></select><span id="result-count"></span></div>
+          <div class="medicine-finder-image"><img src="assets/images/tablets-compressed.jpg" alt="A selection of medicine tablets" loading="lazy"></div>
+        </div>
+
+        <div class="medicine-forms">
+          <div class="catalog-subheading"><h3>Common medicine forms</h3><p>Our range includes many familiar medicine forms and preparations.</p></div>
+          <div class="medicine-form-grid">
+            <article class="medicine-form-card"><img src="assets/images/tablets-compressed.jpg" alt="Medicine tablets" loading="lazy"><div><h4>Tablets</h4><p>2,376 items</p></div></article>
+            <article class="medicine-form-card"><img src="assets/images/syrupsSuspensions-compressed.jpg" alt="Medicine syrups and suspensions" loading="lazy"><div><h4>Syrups &amp; Suspensions</h4><p>708 items</p></div></article>
+            <article class="medicine-form-card"><img src="assets/images/creamsointment-compressed.jpg" alt="Medicine creams, ointments and gels" loading="lazy"><div><h4>Creams, Ointments &amp; Gels</h4><p>660 items</p></div></article>
+            <article class="medicine-form-card"><img src="assets/images/capsules-compressed.jpg" alt="Medicine capsules" loading="lazy"><div><h4>Capsules</h4><p>489 items</p></div></article>
+            <article class="medicine-form-card"><img src="assets/images/drops-compressed.jpg" alt="Medicine drops" loading="lazy"><div><h4>Drops</h4><p>260 items</p></div></article>
+            <article class="medicine-form-card"><img src="assets/images/inhalers-compressed.jpg" alt="Medicine inhalers and other medicine forms" loading="lazy"><div><h4>More Medicine Forms</h4><p>Injections, inhalers, sprays, powders &amp; sachets</p></div></article>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrap browse-catalog">
+        <div class="browse-catalog-heading">
+          <div><p class="eyebrow">Shop by category</p><h2>Health &amp; personal care</h2></div>
+          <p>Browse selected products available from Jopeem Pharmacy.</p>
+        </div>
+
+        <div class="catalog-category-grid" role="tablist" aria-label="Product categories">
+          <button class="catalog-category-card active" type="button" role="tab" aria-selected="true" data-category="Cosmetics"><span class="category-monogram">C</span><span><b>Cosmetics</b><small>168 products</small></span><i aria-hidden="true">→</i></button>
+          <button class="catalog-category-card" type="button" role="tab" aria-selected="false" data-category="Sundries"><span class="category-monogram">H</span><span><b>Health Essentials</b><small>220 products</small></span><i aria-hidden="true">→</i></button>
+          <button class="catalog-category-card" type="button" role="tab" aria-selected="false" data-category="Diagnostics"><span class="category-monogram">D</span><span><b>Diagnostics</b><small>46 products</small></span><i aria-hidden="true">→</i></button>
+          <button class="catalog-category-card" type="button" role="tab" aria-selected="false" data-category="Medical Devices"><span class="category-monogram">M</span><span><b>Medical Devices</b><small>40 products</small></span><i aria-hidden="true">→</i></button>
+        </div>
+
+        <div class="catalog-browser" role="tabpanel">
+          <div class="catalog-browser-head"><p class="eyebrow">Selected category</p><h3 id="selected-category-title">Cosmetics</h3></div>
+          <div id="subgroup-chips" class="subgroup-chips" aria-label="Filter products by subcategory"></div>
+          <select id="subgroup-filter" class="subgroup-select-fallback" aria-label="Filter by subcategory" tabindex="-1"><option value="all">All</option></select>
+          <div class="catalog-search-row">
+            <label class="catalog-search"><span class="sr-only">Search products</span><span aria-hidden="true">⌕</span><input id="product-search" type="search" placeholder="Search products…"></label>
+            <span id="result-count" aria-live="polite"></span>
+          </div>
           <div id="product-grid" class="product-grid" aria-live="polite"><p class="loading">Loading catalog…</p></div>
           <button id="load-more" class="button button-outline">Show more products</button>
+
+          <div class="catalog-help">
+            <div><h3>Can’t find what you need?</h3><p>Our pharmacy team can help check product or medicine availability.</p></div>
+            <a class="button button-outline wa-link" href="#">Ask on WhatsApp</a>
+          </div>
         </div>
       </div>
     </section>
@@ -162,7 +197,7 @@
   <div class="contact-launcher"><div class="contact-menu" id="contact-menu" aria-hidden="true"><p>How can we help?</p><a class="wa-link" href="#" target="_blank" rel="noopener"><span aria-hidden="true">◉</span><b>WhatsApp<small>Chat with our pharmacy team</small></b></a><a href="tel:+256788570123"><span aria-hidden="true">☎</span><b>Call us<small>0788 570 123</small></b></a><a href="mailto:jopeempharmacy2010@gmail.com"><span aria-hidden="true">@</span><b>Email<small>jopeempharmacy2010@gmail.com</small></b></a><!-- TODO: awaiting client social handles --><button type="button" disabled><span aria-hidden="true">♪</span><b>TikTok<small>Handle coming soon</small></b></button><div class="contact-socials"><button type="button" disabled>Facebook · coming soon</button><button type="button" disabled>Instagram · coming soon</button></div></div><button class="contact-fab" type="button" aria-label="Open contact options" aria-controls="contact-menu" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.48 9 9 0 0 1-3.7-.98L4 19l1-3.7A7.5 7.5 0 1 1 20 11.5Z"/><path d="M8 10h8M8 13h5"/></svg></button></div>
   <div id="bag-toast" class="bag-toast" role="status" aria-live="polite"></div>
   <div class="drawer-backdrop" data-close-cart></div>
-  <aside class="cart-drawer" aria-label="Enquiry cart" aria-hidden="true"><div class="drawer-head"><div><p class="eyebrow">Your enquiry</p><h2>Shopping bag <span class="cart-count">0</span></h2></div><button data-close-cart aria-label="Close cart">×</button></div><div id="cart-items" class="cart-items"></div><div class="cart-foot"><p>Prices and availability are confirmed by our pharmacy team.</p><button id="start-checkout" class="button button-primary">Continue to checkout</button><button id="clear-cart" class="text-button">Clear bag</button></div></aside>
+  <aside class="cart-drawer" aria-label="Product enquiry" aria-hidden="true"><div class="drawer-head"><div><p class="eyebrow">Your enquiry</p><h2>Enquiry list <span class="cart-count">0</span></h2></div><button data-close-cart aria-label="Close cart">×</button></div><div id="cart-items" class="cart-items"></div><div class="cart-foot"><p>Prices and availability are confirmed by our pharmacy team.</p><button id="start-checkout" class="button button-primary">Review enquiry</button><button id="clear-cart" class="text-button">Clear enquiry</button></div></aside>
 
   <dialog id="checkout-dialog"><button class="dialog-close" data-close-dialog aria-label="Close">×</button><p class="eyebrow">Final step</p><h2>Send your order enquiry</h2><p>No payment is taken online. Our team will confirm availability and prices on WhatsApp.</p><form id="checkout-form"><label>Full name<input name="name" required autocomplete="name"></label><label>Phone number<input name="phone" type="tel" required autocomplete="tel"></label><label>Preferred branch<select name="branch"><option>Nyanama Trading Centre</option><option>Lebron Shopping Complex, Nalumunye</option></select></label><label>Notes (optional)<textarea name="notes" rows="3" placeholder="Anything our team should know?"></textarea></label><button class="button button-primary" type="submit">Send via WhatsApp ↗</button></form></dialog>
 
