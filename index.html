@@ -24,7 +24,7 @@
       <a href="#services">Services</a><a href="#catalog">Catalog</a><a href="#about">About</a><a href="#contact">Contact</a>
     </nav>
     <div class="header-actions">
-      <button class="icon-button cart-button" data-open-cart aria-label="Open cart">Enquiry <span class="cart-count">0</span></button>
+      <button class="icon-button cart-button" data-open-cart aria-label="Open cart">Checkout <span class="cart-count">0</span></button>
       <button class="icon-button menu-button" aria-controls="nav" aria-expanded="false">Menu</button>
     </div>
   </header>
@@ -310,15 +310,15 @@
         </a>
       </div>
     </section>
-    <button class="contact-fab" type="button" aria-label="Open contact options" aria-controls="contact-menu" aria-expanded="false">
+    <button class="contact-fab" type="button" aria-label="Open Jopeem contact options" aria-controls="contact-menu" aria-expanded="false">
       <span class="contact-fab-chat" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.48A9 9 0 0 1 8.3 18L4 19l1-3.7A7.5 7.5 0 1 1 20 11.5Z"/><path d="M8 10h8M8 13h5"/></svg></span>
       <span class="contact-fab-close" aria-hidden="true">×</span>
-      <span class="contact-fab-label"><span class="contact-label-closed">Chat with us</span><span class="contact-label-open">Close</span></span>
+      <span class="contact-fab-label"><span class="contact-label-closed">Contact Jopeem</span><span class="contact-label-open">Close</span></span>
     </button>
   </div>
   <div id="bag-toast" class="bag-toast" role="status" aria-live="polite"></div>
   <div class="drawer-backdrop" data-close-cart></div>
-  <aside class="cart-drawer" aria-label="Product enquiry" aria-hidden="true"><div class="drawer-head"><div><p class="eyebrow">Your enquiry</p><h2>Enquiry list <span class="cart-count">0</span></h2></div><button data-close-cart aria-label="Close cart">×</button></div><div id="cart-items" class="cart-items"></div><div class="cart-foot"><p>Prices and availability are confirmed by our pharmacy team.</p><button id="start-checkout" class="button button-primary">Review enquiry</button><button id="clear-cart" class="text-button">Clear enquiry</button></div></aside>
+  <aside class="cart-drawer" aria-label="Checkout products" aria-hidden="true"><div class="drawer-head"><div><p class="eyebrow">Your checkout</p><h2>Products <span class="cart-count">0</span></h2></div><button data-close-cart aria-label="Close cart">×</button></div><div id="cart-items" class="cart-items"></div><div class="cart-foot"><p>Prices and availability are confirmed by our pharmacy team.</p><button id="start-checkout" class="button button-primary">Continue to checkout</button><button id="clear-cart" class="text-button">Clear products</button></div></aside>
 
   <dialog id="checkout-dialog"><button class="dialog-close" data-close-dialog aria-label="Close">×</button><p class="eyebrow">Final step</p><h2>Send your order enquiry</h2><p>No payment is taken online. Our team will confirm availability and prices on WhatsApp.</p><form id="checkout-form"><label>Full name<input name="name" required autocomplete="name"></label><label>Phone number<input name="phone" type="tel" required autocomplete="tel"></label><label>Preferred branch<select name="branch"><option>Nyanama Trading Centre</option><option>Lebron Shopping Complex, Nalumunye</option></select></label><label>Notes (optional)<textarea name="notes" rows="3" placeholder="Anything our team should know?"></textarea></label><button class="button button-primary" type="submit">Send via WhatsApp ↗</button></form></dialog>
 
