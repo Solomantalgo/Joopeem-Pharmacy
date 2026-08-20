@@ -19,7 +19,8 @@ function renderCatalog(){
 }
 function saveCart(){localStorage.setItem('jopeem-cart',JSON.stringify(state.cart));renderCart()}
 function renderCart(){const count=state.cart.reduce((n,x)=>n+x.qty,0);$$('.cart-count').forEach(x=>x.textContent=count);$('#cart-items').innerHTML=state.cart.length?state.cart.map((x,i)=>`<div class="cart-row"><b>${escapeHtml(x.name)}</b><div class="qty"><button data-qty="${i}" data-delta="-1">−</button><span>${x.qty}</span><button data-qty="${i}" data-delta="1">+</button></div><button class="remove" data-remove="${i}">Remove</button></div>`).join(''):'<div class="cart-empty"><b>Your bag is empty</b><p>Browse the catalog and add products for a quick WhatsApp enquiry.</p></div>';$('#start-checkout').disabled=!state.cart.length}
-function addItem(name,category){const found=state.cart.find(x=>x.name===name);found?found.qty++:state.cart.push({name,category,qty:1});saveCart();document.body.classList.add('cart-open','locked');$('.cart-drawer').setAttribute('aria-hidden','false')}
+function showBagToast(name){const toast=document.querySelector("#bag-toast");if(!toast)return;toast.textContent=name+" added to your enquiry bag";toast.classList.remove("show");requestAnimationFrame(()=>toast.classList.add("show"));clearTimeout(showBagToast.timer);showBagToast.timer=setTimeout(()=>toast.classList.remove("show"),2600)}
+function addItem(name,category){const found=state.cart.find(x=>x.name===name);found?found.qty++:state.cart.push({name,category,qty:1});saveCart();showBagToast(name)}
 function closeCart(){document.body.classList.remove('cart-open','locked');$('.cart-drawer').setAttribute('aria-hidden','true')}
 document.addEventListener('click',e=>{
   const add=e.target.closest('[data-add]');if(add)addItem(decodeURIComponent(add.dataset.add),decodeURIComponent(add.dataset.group));
@@ -38,3 +39,12 @@ $('#checkout-form').onsubmit=e=>{e.preventDefault();const d=new FormData(e.targe
 setWaLinks();renderCart();loadCatalog();
 setTimeout(()=>{if(!localStorage.getItem('jopeem-branch-set'))$('#branch-dialog').showModal();else if(!sessionStorage.getItem('jopeem-consult-seen')){$('#consult-dialog').showModal();sessionStorage.setItem('jopeem-consult-seen','1')}},900);
 $('#branch-dialog').addEventListener('close',()=>{if(!sessionStorage.getItem('jopeem-consult-seen'))setTimeout(()=>{$('#consult-dialog').showModal();sessionStorage.setItem('jopeem-consult-seen','1')},5000)});
+
+const contactFab=$(".contact-fab"),contactMenu=$("#contact-menu");
+if(contactFab&&contactMenu){
+  const setContactMenu=open=>{contactMenu.classList.toggle("open",open);contactMenu.setAttribute("aria-hidden",String(!open));contactFab.setAttribute("aria-expanded",String(open));contactFab.setAttribute("aria-label",open?"Close contact options":"Open contact options")};
+  contactFab.addEventListener("click",e=>{e.stopPropagation();setContactMenu(!contactMenu.classList.contains("open"))});
+  contactMenu.addEventListener("click",e=>e.stopPropagation());
+  document.addEventListener("click",()=>setContactMenu(false));
+  document.addEventListener("keydown",e=>{if(e.key==="Escape")setContactMenu(false)});
+}
