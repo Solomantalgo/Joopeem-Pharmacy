@@ -52,13 +52,33 @@ setWaLinks();renderCart();loadCatalog();
 setTimeout(()=>{if(!localStorage.getItem('jopeem-branch-set'))$('#branch-dialog').showModal();else if(!sessionStorage.getItem('jopeem-consult-seen')){$('#consult-dialog').showModal();sessionStorage.setItem('jopeem-consult-seen','1')}},900);
 $('#branch-dialog').addEventListener('close',()=>{if(!sessionStorage.getItem('jopeem-consult-seen'))setTimeout(()=>{$('#consult-dialog').showModal();sessionStorage.setItem('jopeem-consult-seen','1')},5000)});
 
-const contactFab=$(".contact-fab"),contactMenu=$("#contact-menu");
+const contactFab=$(".contact-fab"),contactMenu=$("#contact-menu"),contactBackdrop=$(".contact-panel-backdrop");
 if(contactFab&&contactMenu){
-  const setContactMenu=open=>{contactMenu.classList.toggle("open",open);contactMenu.setAttribute("aria-hidden",String(!open));contactFab.setAttribute("aria-expanded",String(open));contactFab.setAttribute("aria-label",open?"Close contact options":"Open contact options")};
+  const contactClose=$(".contact-menu-close",contactMenu);
+  const setContactMenu=(open,restoreFocus=true)=>{
+    const wasOpen=contactMenu.classList.contains("open");
+    if(open&&document.querySelector("dialog[open]"))return;
+    if(open){
+      closeCart();
+      $("#nav").classList.remove("open");
+      $(".menu-button").setAttribute("aria-expanded","false");
+    }
+    contactMenu.classList.toggle("open",open);
+    contactBackdrop.classList.toggle("open",open);
+    document.body.classList.toggle("contact-open",open);
+    contactMenu.setAttribute("aria-hidden",String(!open));
+    contactMenu.setAttribute("aria-modal",String(open&&window.matchMedia("(max-width: 600px)").matches));
+    contactFab.setAttribute("aria-expanded",String(open));
+    contactFab.setAttribute("aria-label",open?"Close contact options":"Open contact options");
+    if(open)requestAnimationFrame(()=>contactClose.focus());
+    else if(wasOpen&&restoreFocus)contactFab.focus();
+  };
   contactFab.addEventListener("click",e=>{e.stopPropagation();setContactMenu(!contactMenu.classList.contains("open"))});
   contactMenu.addEventListener("click",e=>e.stopPropagation());
-  document.addEventListener("click",()=>setContactMenu(false));
-  document.addEventListener("keydown",e=>{if(e.key==="Escape")setContactMenu(false)});
+  $$("[data-contact-close]").forEach(el=>el.addEventListener("click",()=>setContactMenu(false)));
+  $$(".contact-option",contactMenu).forEach(link=>link.addEventListener("click",()=>setContactMenu(false,false)));
+  document.addEventListener("click",e=>{if(contactMenu.classList.contains("open")&&!e.target.closest(".contact-launcher"))setContactMenu(false,false)});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&contactMenu.classList.contains("open"))setContactMenu(false)});
 }
 
 const galleryPreview=document.querySelector("[data-gallery]");

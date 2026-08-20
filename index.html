@@ -8,12 +8,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="images/jopeem-hero.png" type="image/png" fetchpriority="high">
   <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <div class="notice"><span>Open daily</span> Nyanama: 7:00 AM–12 Midnight <a href="tel:+256788570123">0788 570 123</a></div>
+  <div class="notice"><span>Open every day</span><i aria-hidden="true">•</i> Nyanama until 12 Midnight <a href="tel:+256702774852">Call pharmacy</a></div>
   <header class="site-header" id="top">
     <a class="brand" href="#top" aria-label="Jopeem Pharmacy home">
       <!-- TODO: Replace this logo slot when the client logo is supplied. -->
@@ -35,19 +36,42 @@
       <div class="hero-copy wrap">
         <p class="eyebrow">Your neighbourhood health partner</p>
         <h1>Adding years of <em>Health</em> to your life.</h1>
-        <p class="hero-lead">Patient-focused healthcare, quality medicines and professional guidance—every day, close to home.</p>
+        <p class="hero-lead">Your community pharmacy for quality medicines, everyday health checks and professional pharmacy guidance.</p>
         <div class="hero-actions">
-          <a class="button button-primary wa-link" href="#">Chat on WhatsApp <span>↗</span></a>
+          <a class="button button-primary wa-link" href="#">Chat with our pharmacy team <span>↗</span></a>
           <a class="button button-ghost" href="#catalog">Browse products</a>
         </div>
-        <div class="branch-pill"><span class="pulse"></span><div><b>Nyanama Trading Centre</b><small>Open today · 7:00 AM–12 Midnight</small></div></div>
+        <div class="branch-pill"><span class="pulse"></span><div><b>Nyanama Trading Centre</b><small>Open today · 7:00 AM–12 Midnight</small><a href="#contact">View both branches →</a></div></div>
       </div>
     </section>
 
-    <section class="trust-strip wrap" aria-label="Key benefits">
-      <div><span>✚</span><p><b>Free consultation</b><small>Talk to our pharmacy team</small></p></div>
-      <div><span>✓</span><p><b>Patient-first care</b><small>Respectful, professional support</small></p></div>
-      <div><span>⌖</span><p><b>Two Kampala branches</b><small>Nyanama & Nalumunye</small></p></div>
+    <section class="quick-actions wrap" aria-labelledby="quick-actions-title">
+      <div class="quick-actions-head"><p class="eyebrow">Quick help</p><h2 id="quick-actions-title">What can we help you with?</h2></div>
+      <div class="quick-actions-grid">
+        <a class="quick-action wa-link" href="#">
+          <span class="quick-action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4h8v4H8zM6 8h12v12H6zM9 12h6M12 9v6"/></svg></span>
+          <span><b>Find a Medicine</b><small>Ask us to check availability</small></span><i aria-hidden="true">→</i>
+        </a>
+        <a class="quick-action" href="#services">
+          <span class="quick-action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.3-7-10a4 4 0 0 1 7-2.8A4 4 0 0 1 19 11c0 5.7-7 10-7 10z"/><path d="M8.5 13h2l1-2.5 1.5 5 1-2.5h2"/></svg></span>
+          <span><b>Health Services</b><small>View checks &amp; consultations</small></span><i aria-hidden="true">→</i>
+        </a>
+        <a class="quick-action" href="tel:+256702774852">
+          <span class="quick-action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7.2 3.5 10 7.8 8.3 10c1.2 2.5 3.2 4.5 5.7 5.7l2.2-1.7 4.3 2.8-.8 3.2c-.2.8-1 1.4-1.9 1.3C9.9 20.3 3.7 14.1 2.7 6.2c-.1-.9.5-1.7 1.3-1.9z"/></svg></span>
+          <span><b>Call Pharmacy</b><small>Speak with our team</small></span><i aria-hidden="true">→</i>
+        </a>
+        <a class="quick-action" href="#contact">
+          <span class="quick-action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+          <span><b>Get Directions</b><small>Find our branches</small></span><i aria-hidden="true">→</i>
+        </a>
+      </div>
+    </section>
+
+    <section class="trust-strip wrap" aria-label="Why choose Jopeem">
+      <div><b>Free Consultation</b><small>Talk with our pharmacy team</small></div>
+      <div><b>Open Every Day</b><small>Convenient access to care</small></div>
+      <div><b>2 Locations</b><small>Nyanama &amp; Nalumunye</small></div>
+      <div><b>6,800+ Medicines</b><small>Ask us to check availability</small></div>
     </section>
 
     <section class="section services" id="services">
@@ -264,7 +288,34 @@
 
   <footer><div class="wrap footer-grid"><div><a class="brand footer-brand" href="#top"><span class="brand-mark"><img src="assets/JOPEEM_logo-compressed.jpg" alt="" width="44" height="44"></span><span><b>JOPEEM</b><small>Pharmacy & Health Care</small></span></a><p>Adding years of Health to your life.</p></div><div><b>Explore</b><a href="#services">Services</a><a href="#catalog">Catalog</a><a href="#about">About</a><a href="#contact">Contact</a></div><div><b>Follow us</b><div class="socials"><!-- TODO: awaiting client social handles --><span aria-label="Facebook — handle coming soon" title="Facebook handle coming soon">f</span><span aria-label="Instagram — handle coming soon" title="Instagram handle coming soon">◎</span><a class="wa-link" href="#" aria-label="WhatsApp">w</a></div></div></div><div class="wrap copyright">© 2026 Jopeem Pharmacy and Health Care Centre Ltd.</div></footer>
 
-  <div class="contact-launcher"><div class="contact-menu" id="contact-menu" aria-hidden="true"><p>How can we help?</p><a class="wa-link" href="#" target="_blank" rel="noopener"><span aria-hidden="true">◉</span><b>WhatsApp<small>Chat with our pharmacy team</small></b></a><a href="tel:+256788570123"><span aria-hidden="true">☎</span><b>Call us<small>0788 570 123</small></b></a><a href="mailto:jopeempharmacy2010@gmail.com"><span aria-hidden="true">@</span><b>Email<small>jopeempharmacy2010@gmail.com</small></b></a><!-- TODO: awaiting client social handles --><button type="button" disabled><span aria-hidden="true">♪</span><b>TikTok<small>Handle coming soon</small></b></button><div class="contact-socials"><button type="button" disabled>Facebook · coming soon</button><button type="button" disabled>Instagram · coming soon</button></div></div><button class="contact-fab" type="button" aria-label="Open contact options" aria-controls="contact-menu" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.48 9 9 0 0 1-3.7-.98L4 19l1-3.7A7.5 7.5 0 1 1 20 11.5Z"/><path d="M8 10h8M8 13h5"/></svg></button></div>
+  <div class="contact-launcher">
+    <div class="contact-panel-backdrop" data-contact-close aria-hidden="true"></div>
+    <section class="contact-menu" id="contact-menu" role="dialog" aria-modal="false" aria-labelledby="contact-menu-title" aria-hidden="true" tabindex="-1">
+      <div class="contact-menu-head">
+        <div><h2 id="contact-menu-title">Need help?</h2><p>Choose how you’d like to reach our pharmacy team.</p></div>
+        <button class="contact-menu-close" type="button" data-contact-close aria-label="Close contact options">×</button>
+      </div>
+      <div class="contact-options">
+        <a class="contact-option contact-option-whatsapp wa-link" href="#" target="_blank" rel="noopener">
+          <span class="contact-option-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 11.7a8 8 0 0 1-11.8 7L4 20l1.3-4A8 8 0 1 1 20 11.7z"/><path d="M8.5 8.3c.3-.5.6-.5.9-.1l1 1.8c.2.3.1.6-.2.9l-.6.6c.8 1.6 1.8 2.6 3.5 3.3l.6-.7c.3-.3.6-.4.9-.2l1.8.9c.4.2.4.6.1.9-.5.8-1.3 1.2-2.2 1.1-3.7-.5-6.7-3.4-7.3-7.1-.1-.6.4-1.1 1.5-1.4z"/></svg></span>
+          <span><b>WhatsApp</b><small>Chat with our pharmacy team</small></span><i aria-hidden="true">→</i>
+        </a>
+        <a class="contact-option contact-option-call" href="tel:+256702774852">
+          <span class="contact-option-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m7.3 3.5 2.8 4.3-1.8 2.3c1.2 2.5 3.2 4.5 5.7 5.7l2.2-1.8 4.3 2.8-.8 3.2c-.2.8-1 1.4-1.9 1.3C9.9 20.3 3.7 14.1 2.7 6.2c-.1-.9.5-1.7 1.3-1.9z"/></svg></span>
+          <span><b>Call pharmacy</b><small>Speak with our team</small></span><i aria-hidden="true">→</i>
+        </a>
+        <a class="contact-option contact-option-email" href="mailto:jopeempharmacy2010@gmail.com">
+          <span class="contact-option-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></span>
+          <span><b>Email us</b><small>Send us a message</small></span><i aria-hidden="true">→</i>
+        </a>
+      </div>
+    </section>
+    <button class="contact-fab" type="button" aria-label="Open contact options" aria-controls="contact-menu" aria-expanded="false">
+      <span class="contact-fab-chat" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.48A9 9 0 0 1 8.3 18L4 19l1-3.7A7.5 7.5 0 1 1 20 11.5Z"/><path d="M8 10h8M8 13h5"/></svg></span>
+      <span class="contact-fab-close" aria-hidden="true">×</span>
+      <span class="contact-fab-label"><span class="contact-label-closed">Chat with us</span><span class="contact-label-open">Close</span></span>
+    </button>
+  </div>
   <div id="bag-toast" class="bag-toast" role="status" aria-live="polite"></div>
   <div class="drawer-backdrop" data-close-cart></div>
   <aside class="cart-drawer" aria-label="Product enquiry" aria-hidden="true"><div class="drawer-head"><div><p class="eyebrow">Your enquiry</p><h2>Enquiry list <span class="cart-count">0</span></h2></div><button data-close-cart aria-label="Close cart">×</button></div><div id="cart-items" class="cart-items"></div><div class="cart-foot"><p>Prices and availability are confirmed by our pharmacy team.</p><button id="start-checkout" class="button button-primary">Review enquiry</button><button id="clear-cart" class="text-button">Clear enquiry</button></div></aside>
