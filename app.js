@@ -1,8 +1,33 @@
 const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
-const state={category:'Cosmetics',subgroup:'all',search:'',limit:18,catalog:{},cart:JSON.parse(localStorage.getItem('jopeem-cart')||'[]'),number:localStorage.getItem('jopeem-number')||'256788570123',branch:localStorage.getItem('jopeem-branch')||'Nyanama Trading Centre'};
+const state={category:'Cosmetics',subgroup:'all',search:'',limit:18,catalog:{},cart:JSON.parse(localStorage.getItem('jopeem-cart')||'[]'),number:'256788570123',branch:'Nyanama Trading Centre'};
+const BRANCHES={
+  "Nyanama Trading Centre":{key:"nyanama",short:"Nyanama",hours:"7:00 AM–12 Midnight",notice:"Nyanama until 12 Midnight",phone:"256702774852",phoneDisplay:"0702 774 852",whatsapp:"256788570123",openMinutes:420,closeMinutes:1440,closeLabel:"12 Midnight"},
+  "Lebron Shopping Complex, Nalumunye":{key:"nalumunye",short:"Nalumunye",hours:"7:00 AM–10:00 PM",notice:"Nalumunye until 10:00 PM",phone:"256756744345",phoneDisplay:"0756 744 345",whatsapp:"256777094870",openMinutes:420,closeMinutes:1320,closeLabel:"10:00 PM"}
+};
 const escapeHtml=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const wa=(text='Hello Jopeem Pharmacy, I would like some assistance.')=>`https://wa.me/${state.number}?text=${encodeURIComponent(text)}`;
 function setWaLinks(){ $$('.wa-link').forEach(a=>a.href=wa()); }
+function applyBranch(name){
+  const branchName=BRANCHES[name]?name:"Nyanama Trading Centre",config=BRANCHES[branchName];
+  state.branch=branchName;state.number=config.whatsapp;
+  const notice=document.querySelector("[data-notice-branch]");if(notice)notice.textContent=config.short;
+  const heroBranch=$("[data-hero-branch]"),heroHours=$("[data-hero-hours]");
+  if(heroBranch)heroBranch.textContent=branchName;
+  $$("[data-branch-call]").forEach(link=>link.href=`tel:+${config.phone}`);
+  const callText=$("[data-branch-call-text]");if(callText)callText.textContent=`Speak with our team · ${config.phoneDisplay}`;
+  const closingBranch=$("[data-closing-branch]"),closingHours=$("[data-closing-hours]");
+  if(closingBranch)closingBranch.textContent=branchName;if(closingHours)closingHours.textContent=config.hours;
+  const consultBranch=$("[data-consult-branch]");if(consultBranch)consultBranch.textContent=config.short;
+  $$("form select[name=branch]").forEach(select=>select.value=branchName);
+  $$("[data-branch-card]").forEach(card=>{
+    const selected=card.dataset.branchCard===config.key;
+    card.classList.toggle("selected-branch",selected);
+    const label=$("[data-branch-label]",card);if(label)label.textContent=selected?"Preferred branch":card.dataset.branchCard==="nyanama"?"Main branch":"Other branch";
+    const action=$(".branch-wa-link",card);if(action){action.classList.toggle("button-primary",selected);action.classList.toggle("button-outline",!selected);action.textContent=selected?"Message preferred branch":"Message this branch"}
+  });
+  $$("[data-select-branch]").forEach(button=>{const selected=button.dataset.selectBranch===branchName;button.classList.toggle("selected",selected);button.setAttribute("aria-pressed",String(selected))});
+  setWaLinks();updateBranchStatus();
+}
 function parseCatalog(md){
   ['Cosmetics','Sundries','Diagnostics','Medical Devices'].forEach((cat,i,all)=>{
     const start=md.indexOf(`### ${cat} (`), end=i<all.length-1?md.indexOf(`### ${all[i+1]} (`,start):md.length;
@@ -42,16 +67,40 @@ document.addEventListener('click',e=>{
   const qty=e.target.closest('[data-qty]');if(qty){const i=+qty.dataset.qty;state.cart[i].qty+=+qty.dataset.delta;if(state.cart[i].qty<1)state.cart.splice(i,1);saveCart()}
   const remove=e.target.closest('[data-remove]');if(remove){state.cart.splice(+remove.dataset.remove,1);saveCart()}
   const close=e.target.closest('[data-close-dialog]');if(close)close.closest('dialog').close();
-  const branch=e.target.closest('[data-select-branch]');if(branch){state.branch=branch.dataset.selectBranch;state.number=branch.dataset.number;localStorage.setItem('jopeem-branch',state.branch);localStorage.setItem('jopeem-number',state.number);localStorage.setItem('jopeem-branch-set','1');setWaLinks();branch.closest('dialog').close()}
+  const branch=e.target.closest("[data-select-branch]");if(branch){applyBranch(branch.dataset.selectBranch);branch.closest("dialog").close()}
+  const openBranch=e.target.closest("[data-open-branch]");if(openBranch){const dialog=document.querySelector("#branch-dialog");applyBranch(state.branch);if(!dialog.open)dialog.showModal()}
+  if(e.target.closest("[data-consult-dismiss]"))consultDismissed=true;
+  const composerTrigger=e.target.closest("[data-wa-compose]");if(composerTrigger){e.preventDefault();openWhatsAppComposer(composerTrigger.dataset.waContext||"general")}
 });
 $$(".catalog-category-card").forEach(b=>b.onclick=()=>{$$(".catalog-category-card").forEach(x=>{x.classList.remove("active");x.setAttribute("aria-selected","false")});b.classList.add("active");b.setAttribute("aria-selected","true");state.category=b.dataset.category;state.subgroup="all";state.search="";state.limit=18;$("#product-search").value="";renderCatalog();const results=$("#catalog-results"),reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;requestAnimationFrame(()=>results.scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"start"}))});
 $('#product-search').oninput=e=>{state.search=e.target.value;state.limit=18;renderCatalog()};$('#subgroup-filter').onchange=e=>{state.subgroup=e.target.value;state.limit=18;renderCatalog()};$('#load-more').onclick=()=>{state.limit+=18;renderCatalog()};
 $('.menu-button').onclick=e=>{const open=$('#nav').classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',open)};$$('#nav a').forEach(a=>a.onclick=()=>$('#nav').classList.remove('open'));
-$('#clear-cart').onclick=()=>{state.cart=[];saveCart()};$('#start-checkout').onclick=()=>{closeCart();$('#checkout-dialog').showModal()};
+document.querySelector("#clear-cart").onclick=()=>{state.cart=[];saveCart()};document.querySelector("#start-checkout").onclick=()=>{closeCart();document.querySelector("#checkout-form").elements.branch.value=state.branch;document.querySelector("#checkout-dialog").showModal()};
 $('#checkout-form').onsubmit=e=>{e.preventDefault();const d=new FormData(e.target),items=state.cart.map(x=>`• ${x.name} × ${x.qty}`).join('\n');const msg=`Hello Jopeem Pharmacy, I would like to submit an order enquiry.\n\nName: ${d.get('name')}\nPhone: ${d.get('phone')}\nPreferred branch: ${d.get('branch')}\n\nItems:\n${items}\n\nNotes: ${d.get('notes')||'None'}\n\nPlease confirm prices and availability.`;window.open(wa(msg),'_blank','noopener')};
-setWaLinks();renderCart();loadCatalog();
-setTimeout(()=>{if(!localStorage.getItem('jopeem-branch-set'))$('#branch-dialog').showModal();else if(!sessionStorage.getItem('jopeem-consult-seen')){$('#consult-dialog').showModal();sessionStorage.setItem('jopeem-consult-seen','1')}},900);
-$('#branch-dialog').addEventListener('close',()=>{if(!sessionStorage.getItem('jopeem-consult-seen'))setTimeout(()=>{$('#consult-dialog').showModal();sessionStorage.setItem('jopeem-consult-seen','1')},5000)});
+let consultTimer,consultDismissed=false;
+function scheduleConsult(delay=8000){
+  if(consultDismissed||consultTimer)return;
+  consultTimer=setTimeout(()=>{
+    consultTimer=null;
+    if(consultDismissed)return;
+    if(document.querySelector("dialog[open]")){scheduleConsult(4000);return}
+    document.querySelector("#consult-dialog").showModal();
+  },delay);
+}
+applyBranch(state.branch);renderCart();loadCatalog();setInterval(updateBranchStatus,1000);
+setTimeout(()=>document.querySelector("#branch-dialog").showModal(),900);
+document.querySelector("#branch-dialog").addEventListener("close",()=>scheduleConsult(6500));
+
+const whatsappComposer=document.querySelector("#whatsapp-composer"),whatsappComposerForm=document.querySelector("#whatsapp-composer-form");
+const composerMessages={general:"Hello Jopeem Pharmacy, I would like assistance with medicines, health services, or another pharmacy-related enquiry.",consultation:"Hello Jopeem Pharmacy, I would like to request a free consultation with your pharmacy team.",help:"Hello Jopeem Pharmacy, I need help finding a medicine or choosing the appropriate pharmacy service."};
+function updateComposerPreview(){const message=whatsappComposerForm.elements.message.value;document.querySelector("[data-message-preview]").textContent=message;document.querySelector("[data-message-count]").textContent=message.length}
+function openWhatsAppComposer(context){
+  const openDialog=document.querySelector("dialog[open]");if(openDialog)openDialog.close();
+  closeCart();whatsappComposerForm.elements.branch.value=state.branch;whatsappComposerForm.elements.message.value=composerMessages[context]||composerMessages.general;updateComposerPreview();whatsappComposer.showModal();
+}
+whatsappComposerForm.elements.message.addEventListener("input",updateComposerPreview);
+whatsappComposerForm.elements.branch.addEventListener("change",event=>applyBranch(event.target.value));
+whatsappComposerForm.addEventListener("submit",event=>{event.preventDefault();const message=whatsappComposerForm.elements.message.value.trim();if(!message)return;whatsappComposer.close();window.open(wa(message),"_blank","noopener")});
 
 const contactFab=$(".contact-fab"),contactMenu=$("#contact-menu"),contactBackdrop=$(".contact-panel-backdrop");
 if(contactFab&&contactMenu){
@@ -98,7 +147,6 @@ if(medicineDialog&&medicineForm){
     medicineForm.reset();
     medicineForm.elements.branch.value=state.branch;
     medicineDialog.showModal();
-    requestAnimationFrame(()=>medicineForm.elements.medicine.focus());
   }));
   medicineForm.addEventListener("submit",event=>{
     event.preventDefault();
@@ -111,4 +159,57 @@ if(medicineDialog&&medicineForm){
     medicineDialog.close();
     window.open(`https://wa.me/${number}?text=${encodeURIComponent(message)}`,"_blank","noopener");
   });
+}
+
+
+const productEnquiryDialog=document.querySelector("#product-enquiry-dialog"),productEnquiryForm=document.querySelector("#product-enquiry-form");
+if(productEnquiryDialog&&productEnquiryForm){
+  document.querySelectorAll(".product-enquiry-trigger").forEach(trigger=>trigger.addEventListener("click",()=>{
+    productEnquiryForm.reset();
+    productEnquiryForm.elements.branch.value=state.branch;
+    productEnquiryDialog.showModal();
+  }));
+  productEnquiryForm.addEventListener("submit",event=>{
+    event.preventDefault();
+    const details=new FormData(productEnquiryForm);
+    const product=String(details.get("product")||"").trim();
+    const productDetails=String(details.get("details")||"").trim();
+    const branch=String(details.get("branch"));
+    const number=branch==="Lebron Shopping Complex, Nalumunye"?"256777094870":"256788570123";
+    const message=`Hello Jopeem Pharmacy, I would like to check product availability.\n\nProduct: ${product}\nSize, brand or details: ${productDetails||"Not specified"}\nPreferred branch: ${branch}\n\nPlease confirm availability and pricing.`;
+    productEnquiryDialog.close();
+    window.open(`https://wa.me/${number}?text=${encodeURIComponent(message)}`,"_blank","noopener");
+  });
+}
+
+
+function kampalaSeconds(){
+  const parts=new Intl.DateTimeFormat("en-GB",{timeZone:"Africa/Kampala",hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:"h23"}).formatToParts(new Date());
+  const hour=Number(parts.find(part=>part.type==="hour").value);
+  const minute=Number(parts.find(part=>part.type==="minute").value);
+  const second=Number(parts.find(part=>part.type==="second").value);
+  return hour*3600+minute*60+second;
+}
+function remainingTime(totalSeconds){
+  const hours=Math.floor(totalSeconds/3600);
+  const minutes=Math.floor((totalSeconds%3600)/60);
+  const seconds=totalSeconds%60;
+  return `${hours?`${hours}h `:""}${minutes?`${minutes}m `:""}${seconds}s`;
+}
+function updateBranchStatus(){
+  const config=BRANCHES[state.branch]||BRANCHES["Nyanama Trading Centre"];
+  const seconds=kampalaSeconds();
+  const openSeconds=config.openMinutes*60,closeSeconds=config.closeMinutes*60;
+  const isOpen=seconds>=openSeconds&&seconds<closeSeconds;
+  const compact=window.matchMedia("(max-width: 520px)").matches;
+  const untilOpen=seconds<openSeconds?openSeconds-seconds:86400-seconds+openSeconds;
+  const status=isOpen
+    ?(compact?`Open · ${config.closeLabel} · ${remainingTime(closeSeconds-seconds)} left`:`Open now · Closes at ${config.closeLabel} · ${remainingTime(closeSeconds-seconds)} left`)
+    :(compact?`Closed · 7:00 AM · ${remainingTime(untilOpen)} left`:`Closed · Opens at 7:00 AM · ${remainingTime(untilOpen)} left`);
+  const noticeStatus=document.querySelector("[data-notice-status]");
+  const heroHours=document.querySelector("[data-hero-hours]");
+  const dot=document.querySelector("[data-notice-dot]");
+  if(noticeStatus)noticeStatus.textContent=status;
+  if(heroHours)heroHours.textContent=status;
+  if(dot)dot.classList.toggle("is-closed",!isOpen);
 }
