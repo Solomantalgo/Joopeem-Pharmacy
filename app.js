@@ -6,7 +6,7 @@ const BRANCHES={
 };
 const escapeHtml=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const wa=(text='Hello Jopeem Pharmacy, I would like some assistance.')=>`https://wa.me/${state.number}?text=${encodeURIComponent(text)}`;
-function setWaLinks(){ $$('.wa-link').forEach(a=>a.href=wa()); }
+function setWaLinks(){ document.querySelectorAll(".wa-link").forEach(a=>a.href=wa()); document.querySelectorAll("[data-wa-message]").forEach(a=>a.href=wa(a.dataset.waMessage)); }
 function applyBranch(name){
   const branchName=BRANCHES[name]?name:"Nyanama Trading Centre",config=BRANCHES[branchName];
   state.branch=branchName;state.number=config.whatsapp;
@@ -17,7 +17,6 @@ function applyBranch(name){
   const callText=$("[data-branch-call-text]");if(callText)callText.textContent=`Speak with our team · ${config.phoneDisplay}`;
   const closingBranch=$("[data-closing-branch]"),closingHours=$("[data-closing-hours]");
   if(closingBranch)closingBranch.textContent=branchName;if(closingHours)closingHours.textContent=config.hours;
-  const consultBranch=$("[data-consult-branch]");if(consultBranch)consultBranch.textContent=config.short;
   $$("form select[name=branch]").forEach(select=>select.value=branchName);
   $$("[data-branch-card]").forEach(card=>{
     const selected=card.dataset.branchCard===config.key;
@@ -37,10 +36,34 @@ function parseCatalog(md){
   });
 }
 async function loadCatalog(){try{const md=await fetch('assets/source-data.md').then(r=>{if(!r.ok)throw Error();return r.text()});parseCatalog(md);renderCatalog()}catch(e){$('#product-grid').innerHTML='<p class="loading">Catalog preview needs a local web server. Please contact us on WhatsApp for availability.</p>'}}
-function categoryItems(){return Object.entries(state.catalog[state.category]||{}).flatMap(([group,items])=>items.map(name=>({name,group,category:state.category}))).filter(x=>(state.subgroup==='all'||x.group===state.subgroup)&&x.name.toLowerCase().includes(state.search.toLowerCase()))}
+function categoryItems(){
+  return Object.entries(state.catalog[state.category]||{}).flatMap(([group,items])=>items.map(item=>{
+    const product=typeof item==="string"?{name:item}:item||{};
+    return {name:String(product.name||""),group,category:state.category,image:String(product.image||product.imageUrl||"").trim()};
+  })).filter(x=>(state.subgroup==="all"||x.group===state.subgroup)&&x.name.toLowerCase().includes(state.search.toLowerCase()));
+}
 function displayCategory(cat){return cat==="Sundries"?"Health Essentials":cat}
 function categoryCardClass(cat){return {"Cosmetics":"product-cosmetics","Sundries":"product-health-essentials","Diagnostics":"product-diagnostics","Medical Devices":"product-medical-devices"}[cat]||"product-default"}
 function displayGroup(group){const labels={"Skincare (Face & Body)":"Skincare","General Health & Miscellaneous":"General Health","Injection, IV & Catheter Supplies":"Injection & IV Supplies","Family Planning & Sexual Wellness":"Family Planning","Diapers & Incontinence":"Diapers & Incontinence"};return labels[group]||group}
+function productVisualMeta(category,group){
+  const value=`${category} ${group}`.toLowerCase();
+  let motif="orbits";
+  if(/skin|lip|soap|body|deodorant|shaving|hair/i.test(value))motif="curves";
+  else if(/baby|diaper|wipe|feminine/i.test(value))motif="soft-dots";
+  else if(/oral|ppe|hygiene|wound|dressing|first aid/i.test(value))motif="grid";
+  else if(/diagnostic|test|laboratory|monitor/i.test(value))motif="measure";
+  else if(/device|orthopedic|support|catheter|injection|iv|suture/i.test(value))motif="technical";
+  const theme={Cosmetics:"cosmetics",Sundries:"essentials",Diagnostics:"diagnostics","Medical Devices":"devices"}[category]||"essentials";
+  const shown=displayGroup(group);
+  const label=shown.length<=24?shown:displayCategory(category);
+  return {theme,motif,label};
+}
+function productVisual(product){
+  const meta=productVisualMeta(product.category,product.group);
+  const image=product.image?`<img data-product-image src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" loading="lazy">`:"";
+  return `<div class="product-visual visual-theme-${meta.theme} motif-${meta.motif}${product.image?" has-image":""}"><div class="product-visual-placeholder" aria-hidden="true"><span class="product-visual-shape"></span><small>${escapeHtml(meta.label)}</small></div>${image}</div>`;
+}
+
 function renderCatalog(){
   const groups=Object.keys(state.catalog[state.category]||{});
   const filter=$("#subgroup-filter");
@@ -50,7 +73,9 @@ function renderCatalog(){
   $("#selected-category-title").textContent=displayCategory(state.category);
   const items=categoryItems(),shown=Math.min(state.limit,items.length);
   $("#result-count").textContent=items.length?`Showing ${shown} of ${items.length} products`:"No matching products";
-  $("#product-grid").innerHTML=items.length?items.slice(0,state.limit).map(x=>`<article class="product-card ${categoryCardClass(x.category)}"><h3>${escapeHtml(x.name)}</h3><small>${escapeHtml(displayGroup(x.group))}</small><button data-add="${encodeURIComponent(x.name)}" data-group="${encodeURIComponent(x.category)}">Add Product</button></article>`).join(""):`<div class="catalog-empty"><b>No matching products found.</b><p>Try another search or ask our pharmacy team to help confirm availability.</p><a class="button button-outline wa-link" href="#">Ask our pharmacy team</a></div>`;
+  const grid=$("#product-grid");
+  grid.innerHTML=items.length?items.slice(0,state.limit).map(x=>`<article class="product-card ${categoryCardClass(x.category)}">${productVisual(x)}<h3 title="${escapeHtml(x.name)}">${escapeHtml(x.name)}</h3><small class="product-subgroup">${escapeHtml(displayGroup(x.group))}</small><button data-add="${encodeURIComponent(x.name)}" data-group="${encodeURIComponent(x.category)}">Add Product</button></article>`).join(""):`<div class="catalog-empty"><b>No matching products found.</b><p>Try another search or ask our pharmacy team to help confirm availability.</p><a class="button button-outline wa-link" href="#">Ask our pharmacy team</a></div>`;
+  grid.querySelectorAll("[data-product-image]").forEach(img=>img.addEventListener("error",()=>{const visual=img.closest(".product-visual");if(visual)visual.classList.remove("has-image");img.remove()},{once:true}));
   $("#load-more").hidden=state.limit>=items.length;
   setWaLinks();
 }
@@ -69,7 +94,6 @@ document.addEventListener('click',e=>{
   const close=e.target.closest('[data-close-dialog]');if(close)close.closest('dialog').close();
   const branch=e.target.closest("[data-select-branch]");if(branch){applyBranch(branch.dataset.selectBranch);branch.closest("dialog").close()}
   const openBranch=e.target.closest("[data-open-branch]");if(openBranch){const dialog=document.querySelector("#branch-dialog");applyBranch(state.branch);if(!dialog.open)dialog.showModal()}
-  if(e.target.closest("[data-consult-dismiss]"))consultDismissed=true;
   const composerTrigger=e.target.closest("[data-wa-compose]");if(composerTrigger){e.preventDefault();openWhatsAppComposer(composerTrigger.dataset.waContext||"general")}
 });
 $$(".catalog-category-card").forEach(b=>b.onclick=()=>{$$(".catalog-category-card").forEach(x=>{x.classList.remove("active");x.setAttribute("aria-selected","false")});b.classList.add("active");b.setAttribute("aria-selected","true");state.category=b.dataset.category;state.subgroup="all";state.search="";state.limit=18;$("#product-search").value="";renderCatalog();const results=$("#catalog-results"),reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;requestAnimationFrame(()=>results.scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"start"}))});
@@ -77,22 +101,11 @@ $('#product-search').oninput=e=>{state.search=e.target.value;state.limit=18;rend
 $('.menu-button').onclick=e=>{const open=$('#nav').classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',open)};$$('#nav a').forEach(a=>a.onclick=()=>$('#nav').classList.remove('open'));
 document.querySelector("#clear-cart").onclick=()=>{state.cart=[];saveCart()};document.querySelector("#start-checkout").onclick=()=>{closeCart();document.querySelector("#checkout-form").elements.branch.value=state.branch;document.querySelector("#checkout-dialog").showModal()};
 $('#checkout-form').onsubmit=e=>{e.preventDefault();const d=new FormData(e.target),items=state.cart.map(x=>`• ${x.name} × ${x.qty}`).join('\n');const msg=`Hello Jopeem Pharmacy, I would like to submit an order enquiry.\n\nName: ${d.get('name')}\nPhone: ${d.get('phone')}\nPreferred branch: ${d.get('branch')}\n\nItems:\n${items}\n\nNotes: ${d.get('notes')||'None'}\n\nPlease confirm prices and availability.`;window.open(wa(msg),'_blank','noopener')};
-let consultTimer,consultDismissed=false;
-function scheduleConsult(delay=8000){
-  if(consultDismissed||consultTimer)return;
-  consultTimer=setTimeout(()=>{
-    consultTimer=null;
-    if(consultDismissed)return;
-    if(document.querySelector("dialog[open]")){scheduleConsult(4000);return}
-    document.querySelector("#consult-dialog").showModal();
-  },delay);
-}
 applyBranch(state.branch);renderCart();loadCatalog();setInterval(updateBranchStatus,1000);
 setTimeout(()=>document.querySelector("#branch-dialog").showModal(),900);
-document.querySelector("#branch-dialog").addEventListener("close",()=>scheduleConsult(6500));
 
 const whatsappComposer=document.querySelector("#whatsapp-composer"),whatsappComposerForm=document.querySelector("#whatsapp-composer-form");
-const composerMessages={general:"Hello Jopeem Pharmacy, I would like assistance with medicines, health services, or another pharmacy-related enquiry.",consultation:"Hello Jopeem Pharmacy, I would like to request a free consultation with your pharmacy team.",help:"Hello Jopeem Pharmacy, I need help finding a medicine or choosing the appropriate pharmacy service."};
+const composerMessages={general:"Hello Jopeem Pharmacy, I would like some assistance.",help:"Hello Jopeem Pharmacy, I need help finding a medicine or choosing the appropriate pharmacy service."};
 function updateComposerPreview(){const message=whatsappComposerForm.elements.message.value;document.querySelector("[data-message-preview]").textContent=message;document.querySelector("[data-message-count]").textContent=message.length}
 function openWhatsAppComposer(context){
   const openDialog=document.querySelector("dialog[open]");if(openDialog)openDialog.close();
