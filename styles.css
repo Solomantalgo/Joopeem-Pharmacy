@@ -159,4 +159,4 @@ a:focus-visible,button:focus-visible{outline:3px solid rgba(76,170,76,.3);outlin
 .notice-status,[data-hero-hours]{font-variant-numeric:tabular-nums}
 
 /* Preserve complete card imagery on desktop */
-@media(min-width:761px){.health-service-card>img{object-fit:contain;background:#eef3ec}.medicine-form-card img{object-fit:contain;background:#f3f6f1;padding:7px}.health-service-card,.medicine-form-card{align-items:stretch}}
+@media(min-width:761px){.health-service-card{grid-template-columns:220px minmax(0,1fr);align-items:stretch}.health-service-card>img{object-fit:cover;object-position:center;background:#eef3ec}.medicine-form-card{align-items:stretch}.medicine-form-card img{object-fit:cover;object-position:center;background:#f3f6f1;padding:0}}
