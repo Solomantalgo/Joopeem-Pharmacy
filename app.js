@@ -226,3 +226,26 @@ function updateBranchStatus(){
   if(heroHours)heroHours.textContent=status;
   if(dot)dot.classList.toggle("is-closed",!isOpen);
 }
+
+
+/* Lightweight coordinated motion; content stays visible until initialization. */
+(function initVisualPolish(){
+  const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)");
+  document.documentElement.classList.add("motion-ready");
+  const header=document.querySelector(".site-header");
+  const syncHeader=()=>header&&header.classList.toggle("is-scrolled",window.scrollY>24);
+  syncHeader();window.addEventListener("scroll",syncHeader,{passive:true});
+  const singles=[".quick-actions-head",".section-heading",".catalog-intro",".browse-catalog-heading",".service-subheading",".catalog-subheading",".about-intro",".about-purpose",".about-guides-head",".contact-bar",".closing-cta"];
+  const groups=[".quick-actions-grid",".trust-strip",".health-services-grid",".medicine-form-grid",".catalog-category-grid",".about-values",".branch-grid"];
+  document.querySelectorAll(singles.join(",")).forEach(el=>el.classList.add("reveal"));
+  document.querySelectorAll(groups.join(",")).forEach(el=>el.classList.add("reveal-group"));
+  document.querySelectorAll(".service-feature,.counselling-feature,.medicine-finder,.services-help,.services-catalog-bridge,.about-brand-visual").forEach((el,i)=>el.classList.add("reveal",i%2?"reveal-right":"reveal-left"));
+  const items=document.querySelectorAll(".reveal,.reveal-group");
+  if(reduceMotion.matches||!("IntersectionObserver" in window)){items.forEach(el=>el.classList.add("is-visible"))}else{
+    const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("is-visible");observer.unobserve(entry.target)}}),{threshold:.08,rootMargin:"0px 0px -5% 0px"});items.forEach(el=>observer.observe(el));
+  }
+  const grid=document.querySelector("#product-grid");
+  if(grid&&"MutationObserver" in window&&!reduceMotion.matches)new MutationObserver(()=>{grid.classList.add("grid-refresh");requestAnimationFrame(()=>requestAnimationFrame(()=>grid.classList.remove("grid-refresh")))}).observe(grid,{childList:true});
+  const fab=document.querySelector(".contact-fab");
+  if(fab&&!reduceMotion.matches&&!sessionStorage.getItem("jopeem-fab-cued"))setTimeout(()=>{fab.classList.add("attention");sessionStorage.setItem("jopeem-fab-cued","1");fab.addEventListener("animationend",()=>fab.classList.remove("attention"),{once:true})},1800);
+})();
