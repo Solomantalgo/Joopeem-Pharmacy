@@ -413,7 +413,10 @@
         <span class="branch-choice-marker" aria-hidden="true"></span><span><b>Nalumunye</b><small>Lebron Shopping Complex · 7:00 AM–10:00 PM</small></span><i aria-hidden="true">→</i>
       </button>
     </div>
-    <p class="branch-picker-note">You can change this anytime from the hero branch status.</p>
+    <div class="branch-location-help"><span><b>Not sure which branch is closer?</b><small>Use your current location for a quick comparison.</small></span><button class="button button-outline" type="button" data-find-nearest><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.3-7-10a7 7 0 1 1 14 0c0 5.7-7 10-7 10z"/><circle cx="12" cy="11" r="2.4"/></svg> Use my location</button></div><p class="branch-picker-note">Your location is only used for this comparison and is not stored.</p>
+  </dialog>
+
+  <dialog id="nearest-branch-dialog" class="nearest-branch-dialog" aria-labelledby="nearest-branch-title"><button class="dialog-close" data-close-nearest aria-label="Close location finder"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><div class="location-scan" aria-hidden="true"><span></span><span></span><span></span><i><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.3-7-10a7 7 0 1 1 14 0c0 5.7-7 10-7 10z"/><circle cx="12" cy="11" r="2.4"/></svg></i></div><p class="eyebrow" data-location-eyebrow>Finding your nearest Jopeem</p><h2 id="nearest-branch-title" data-location-title>Checking your location…</h2><p class="location-status" data-location-status role="status" aria-live="polite">Please allow location access when your browser asks.</p><div class="nearest-result" data-nearest-result hidden><span class="nearest-result-mark" aria-hidden="true">✓</span><p>Based on your current position, your closest branch is</p><h3 data-nearest-name></h3><small data-nearest-detail></small><button class="button button-primary" type="button" data-confirm-nearest>Use this branch <span>→</span></button><button class="text-button" type="button" data-choose-manually>Choose manually instead</button></div><button class="button button-outline location-retry" type="button" data-location-retry hidden>Try again</button><small class="location-privacy">Approximate straight-line distance. Your coordinates stay on this device and are not saved.</small></dialog>
   </dialog>
 </body>
 </html>

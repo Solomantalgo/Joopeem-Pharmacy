@@ -254,3 +254,26 @@ function updateBranchStatus(){
   const fab=document.querySelector(".contact-fab");
   if(fab&&!reduceMotion.matches&&!sessionStorage.getItem("jopeem-fab-cued"))setTimeout(()=>{fab.classList.add("attention");sessionStorage.setItem("jopeem-fab-cued","1");fab.addEventListener("animationend",()=>fab.classList.remove("attention"),{once:true})},1800);
 })();
+
+
+/* Opt-in nearest branch finder. Coordinates are compared locally and never stored. */
+(function initNearestBranchFinder(){
+  const picker=document.querySelector("#branch-dialog"),dialog=document.querySelector("#nearest-branch-dialog");
+  const startButton=document.querySelector("[data-find-nearest]");
+  if(!picker||!dialog||!startButton)return;
+  const points={
+    "Nyanama Trading Centre":{lat:.27092,lng:32.55366,label:"Nyanama Trading Centre"},
+    "Lebron Shopping Complex, Nalumunye":{lat:.26641,lng:32.53006,label:"Nalumunye — at Lebron Supermarket"}
+  };
+  let suggestedBranch="";
+  const title=document.querySelector("[data-location-title]",dialog),status=document.querySelector("[data-location-status]",dialog),eyebrow=document.querySelector("[data-location-eyebrow]",dialog),result=document.querySelector("[data-nearest-result]",dialog),retry=document.querySelector("[data-location-retry]",dialog),scan=document.querySelector(".location-scan",dialog);
+  const distanceKm=(lat1,lng1,lat2,lng2)=>{const rad=value=>value*Math.PI/180,dLat=rad(lat2-lat1),dLng=rad(lng2-lng1),a=Math.sin(dLat/2)**2+Math.cos(rad(lat1))*Math.cos(rad(lat2))*Math.sin(dLng/2)**2;return 6371*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a))};
+  const reset=()=>{suggestedBranch="";dialog.classList.add("is-scanning");scan.classList.remove("is-error","is-found");eyebrow.textContent="Finding your nearest Jopeem";title.textContent="Checking your location…";status.textContent="Please allow location access when your browser asks.";status.hidden=false;result.hidden=true;retry.hidden=true};
+  const fail=error=>{dialog.classList.remove("is-scanning");scan.classList.add("is-error");eyebrow.textContent="Location unavailable";title.textContent="We could not determine your location";status.hidden=false;status.textContent=error&&error.code===1?"Location access was not allowed. You can enable it in your browser settings or choose a branch manually.":"Please check that location services are enabled and try again.";retry.hidden=false};
+  const locate=()=>{reset();if(!navigator.geolocation){fail();return}navigator.geolocation.getCurrentPosition(position=>{const distances=Object.entries(points).map(([name,point])=>({name,point,km:distanceKm(position.coords.latitude,position.coords.longitude,point.lat,point.lng)})).sort((a,b)=>a.km-b.km),nearest=distances[0],other=distances[1];suggestedBranch=nearest.name;dialog.classList.remove("is-scanning");scan.classList.add("is-found");eyebrow.textContent="Nearest branch found";title.textContent="This looks like your closest Jopeem";status.hidden=true;document.querySelector("[data-nearest-name]",dialog).textContent=nearest.point.label;document.querySelector("[data-nearest-detail]",dialog).textContent="Approximately "+(nearest.km<1?Math.round(nearest.km*1000)+" m":nearest.km.toFixed(1)+" km")+" away · "+other.point.label+" is about "+other.km.toFixed(1)+" km away";result.hidden=false},fail,{enableHighAccuracy:false,timeout:12000,maximumAge:300000})};
+  startButton.addEventListener("click",()=>{picker.close();dialog.showModal();locate()});
+  retry.addEventListener("click",locate);
+  document.querySelector("[data-close-nearest]",dialog).addEventListener("click",()=>dialog.close());
+  document.querySelector("[data-confirm-nearest]",dialog).addEventListener("click",()=>{if(suggestedBranch)applyBranch(suggestedBranch);dialog.close()});
+  document.querySelector("[data-choose-manually]",dialog).addEventListener("click",()=>{dialog.close();picker.showModal()});
+})();
