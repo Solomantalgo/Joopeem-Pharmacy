@@ -14,7 +14,7 @@ function applyBranch(name){
   const heroBranch=$("[data-hero-branch]"),heroHours=$("[data-hero-hours]");
   if(heroBranch)heroBranch.textContent=branchName;
   $$("[data-branch-call]").forEach(link=>link.href=`tel:+${config.phone}`);
-  const callText=$("[data-branch-call-text]");if(callText)callText.textContent=`Speak with our team · ${config.phoneDisplay}`;
+  const callText=document.querySelector("[data-branch-call-text]");if(callText)callText.textContent=config.key==="nyanama"?"Choose Airtel or MTN":"Speak with our team · "+config.phoneDisplay;
   const closingBranch=$("[data-closing-branch]"),closingHours=$("[data-closing-hours]");
   if(closingBranch)closingBranch.textContent=branchName;if(closingHours)closingHours.textContent=config.hours;
   $$("form select[name=branch]").forEach(select=>select.value=branchName);
@@ -136,6 +136,11 @@ if(contactFab&&contactMenu){
     if(open)requestAnimationFrame(()=>contactClose.focus());
     else if(wasOpen&&restoreFocus)contactFab.focus();
   };
+  const fabCall=document.querySelector("[data-fab-call]");
+  if(fabCall)fabCall.addEventListener("click",()=>{
+    if(state.branch==="Nyanama Trading Centre"){setContactMenu(false,false);document.querySelector("#call-options-dialog").showModal()}
+    else{setContactMenu(false,false);window.location.href="tel:+"+BRANCHES[state.branch].phone}
+  });
   contactFab.addEventListener("click",e=>{e.stopPropagation();setContactMenu(!contactMenu.classList.contains("open"))});
   contactMenu.addEventListener("click",e=>e.stopPropagation());
   $$("[data-contact-close]").forEach(el=>el.addEventListener("click",()=>setContactMenu(false)));
