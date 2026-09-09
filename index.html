@@ -28,7 +28,7 @@
       <span class="brand-mark"><img src="assets/Favicon/favicon.svg" alt="" width="44" height="44"></span><span><b>JOPEEM</b><small>Pharmacy & Health Care</small></span>
     </a>
     <nav id="nav" aria-label="Main navigation">
-      <a href="#services">Services</a><a href="#catalog">Catalog</a><a href="#about">About</a><a href="#contact">Contact</a>
+      <a href="#services">Services</a><a href="#catalog">Catalog</a><a href="#about">About</a><a href="#contact">Location</a><a href="#contact">Contact</a>
     </nav>
     <div class="header-actions">
       <button class="icon-button cart-button" data-open-cart aria-label="Open cart">Checkout <span class="cart-count">0</span></button>
@@ -72,6 +72,16 @@
           <span><b>Get Directions</b><small>Find our branches</small></span><i aria-hidden="true">→</i>
         </a>
       </div>
+    </section>
+
+
+
+    <section class="quick-access-section wrap" id="quick-access" hidden aria-labelledby="quick-access-title">
+      <div class="quick-access-head">
+        <div><p class="eyebrow">Welcome back</p><h2 id="quick-access-title">Quick access</h2><p>Pick up where you left off.</p></div>
+        <button class="text-button" type="button" id="open-preferences">Your preferences</button>
+      </div>
+      <div id="quick-access-items" class="quick-access-items"></div>
     </section>
 
     <section class="trust-strip wrap" aria-label="Why choose Jopeem">
@@ -243,7 +253,18 @@
       </div>
     </section>
 
-    <section class="section contact" id="contact"><div class="wrap"><div class="section-heading"><div><p class="eyebrow">Find us</p><h2>Care is closer than you think.</h2></div><p>Both branches are open every day. Choose your preferred location and contact us directly.</p></div><div class="branch-grid">
+    <section class="section contact" id="contact"><div class="wrap"><div class="section-heading"><div><p class="eyebrow">Find us</p><h2>Care is closer than you think.</h2></div><p>Both branches are open every day. Choose your preferred location and contact us directly.</p></div><div class="branch-map-panel">
+      <div class="branch-map-heading"><div><p class="eyebrow">Find a branch</p><h3>Explore our locations</h3></div><p>Move around the map, select a Jopeem branch, or get directions.</p></div>
+      <div class="branch-map-toolbar" role="group" aria-label="Choose a branch to show on the map">
+        <button type="button" class="branch-map-choice active" data-map-branch="nyanama" aria-pressed="true">Nyanama</button>
+        <button type="button" class="branch-map-choice" data-map-branch="nalumunye" aria-pressed="false">Nalumunye</button>
+      </div>
+      <div id="branch-map" class="branch-map" role="region" aria-label="Google Map showing the selected Jopeem Pharmacy branch">
+        <iframe id="branch-map-frame" title="Jopeem Pharmacy Nyanama Trading Centre map" src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3989.7737160787146!2d32.55108507766623!3d0.2709253640879764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMMKwMTYnMTUuMyJOIDMywrAzMycxMy4yIkU!5e0!3m2!1sen!2sug!4v1788962420904!5m2!1sen!2sug" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      <p id="branch-map-status" class="branch-map-status" role="status">Showing Nyanama Trading Centre · 7:00 AM–12 Midnight.</p>
+    </div>
+    <div class="branch-grid">
       <article class="branch-card primary-branch selected-branch" data-branch-card="nyanama"><span class="branch-label" data-branch-label>Main branch</span><h3>Nyanama Trading Centre</h3><p class="hours">7:00 AM–12 Midnight <small>Mon–Sun</small></p><dl><div><dt>Phone</dt><dd><a href="tel:+256702774852">0702 774 852</a><br><a href="tel:+256766526651">0766 526 651</a></dd></div><div><dt>WhatsApp</dt><dd><a href="https://wa.me/256788570123">0788 570 123</a></dd></div></dl><div class="branch-actions"><a class="button button-primary branch-wa-link" data-branch-wa="nyanama" href="https://wa.me/256788570123">Message this branch</a><a class="branch-directions" href="https://www.google.com/maps/search/?api=1&amp;query=Jopeem+Pharmacy+Nyanama+Trading+Centre" target="_blank" rel="noopener">Get directions ↗</a></div></article>
       <article class="branch-card" data-branch-card="nalumunye"><span class="branch-label" data-branch-label>Branch 02</span><h3>Lebron Shopping Complex, Nalumunye</h3><p class="hours">7:00 AM–10:00 PM <small>Mon–Sun</small></p><dl><div><dt>Phone</dt><dd><a href="tel:+256756744345">0756 744 345</a></dd></div><div><dt>WhatsApp</dt><dd><a href="https://wa.me/256777094870">0777 094 870</a></dd></div></dl><div class="branch-actions"><a class="button button-outline branch-wa-link" data-branch-wa="nalumunye" href="https://wa.me/256777094870">Message this branch</a><a class="branch-directions" href="https://www.google.com/maps/search/?api=1&amp;query=Jopeem+Pharmacy+Lebron+Shopping+Complex+Nalumunye" target="_blank" rel="noopener">Get directions ↗</a></div></article>
     </div><div class="contact-bar"><div><small>Email us</small><a href="mailto:jopeempharmacy2010@gmail.com">jopeempharmacy2010@gmail.com</a></div><div><small>Postal address</small><span>P.O. Box 16229, Kampala, Uganda</span></div></div></div></section>
@@ -322,7 +343,7 @@
     <section class="closing-cta"><div class="wrap"><div><p class="eyebrow light">Here when you need us</p><h2>Need help finding a medicine or service?</h2><p>Speak with our pharmacy team at <span data-closing-branch>Nyanama Trading Centre</span>, open daily from <span data-closing-hours>7:00 AM–12 Midnight</span>.</p></div><a class="button button-primary wa-link" href="#" data-wa-compose data-wa-context="help">Chat on WhatsApp <span>↗</span></a></div></section>
   </main>
 
-  <footer><div class="wrap footer-grid"><div><a class="brand footer-brand" href="#top"><span class="brand-mark"><img src="assets/Favicon/favicon.svg" alt="" width="44" height="44"></span><span><b>JOPEEM</b><small>Pharmacy & Health Care</small></span></a><p>Adding years of Health to your life.</p></div><div><b>Explore</b><a href="#services">Services</a><a href="#catalog">Catalog</a><a href="#about">About</a><a href="#contact">Contact</a></div><div><b>Follow us</b><div class="socials"><!-- TODO: awaiting client social handles --><span aria-label="Facebook — handle coming soon" title="Facebook handle coming soon">f</span><span aria-label="Instagram — handle coming soon" title="Instagram handle coming soon">◎</span><a class="wa-link" href="#" aria-label="WhatsApp">w</a></div></div></div><div class="wrap copyright"><span>© 2026 Jopeem Pharmacy and Health Care Centre Ltd.</span><a class="site-credit" href="https://solomantalgo.com" target="_blank" rel="noopener">Site by SolomanTalgo Web Design</a></div></footer>
+  <footer><div class="wrap footer-grid"><div><a class="brand footer-brand" href="#top"><span class="brand-mark"><img src="assets/Favicon/favicon.svg" alt="" width="44" height="44"></span><span><b>JOPEEM</b><small>Pharmacy & Health Care</small></span></a><p>Adding years of Health to your life.</p></div><div><b>Explore</b><a href="#services">Services</a><a href="#catalog">Catalog</a><a href="#about">About</a><a href="#contact">Contact</a></div><div><b>Follow us</b><div class="socials"><!-- TODO: awaiting client social handles --><span aria-label="Facebook — handle coming soon" title="Facebook handle coming soon">f</span><span aria-label="Instagram — handle coming soon" title="Instagram handle coming soon">◎</span><a class="wa-link" href="#" aria-label="WhatsApp">w</a></div></div></div><div class="wrap copyright"><span>© 2026 Jopeem Pharmacy and Health Care Centre Ltd.</span><button class="text-button preferences-footer-link" type="button" id="open-preferences-footer">Personalization settings</button><a class="site-credit" href="https://solomantalgo.com" target="_blank" rel="noopener">Site by SolomanTalgo Web Design</a></div></footer>
 
   <div class="contact-launcher">
     <div class="contact-panel-backdrop" data-contact-close aria-hidden="true"></div>
@@ -416,7 +437,18 @@
     <div class="branch-location-help"><span><b>Not sure which branch is closer?</b><small>Use your current location for a quick comparison.</small></span><button class="button button-outline" type="button" data-find-nearest><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.3-7-10a7 7 0 1 1 14 0c0 5.7-7 10-7 10z"/><circle cx="12" cy="11" r="2.4"/></svg> Use my location</button></div><p class="branch-picker-note">Your location is only used for this comparison and is not stored.</p>
   </dialog>
 
-  <dialog id="nearest-branch-dialog" class="nearest-branch-dialog" aria-labelledby="nearest-branch-title"><button class="dialog-close" data-close-nearest aria-label="Close location finder"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><div class="location-scan" aria-hidden="true"><span></span><span></span><span></span><i><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.3-7-10a7 7 0 1 1 14 0c0 5.7-7 10-7 10z"/><circle cx="12" cy="11" r="2.4"/></svg></i></div><p class="eyebrow" data-location-eyebrow>Finding your nearest Jopeem</p><h2 id="nearest-branch-title" data-location-title>Checking your location…</h2><p class="location-status" data-location-status role="status" aria-live="polite">Please allow location access when your browser asks.</p><div class="nearest-result" data-nearest-result hidden><span class="nearest-result-mark" aria-hidden="true">✓</span><p>Based on your current position, your closest branch is</p><h3 data-nearest-name></h3><small data-nearest-detail></small><button class="button button-primary" type="button" data-confirm-nearest>Use this branch <span>→</span></button><button class="text-button" type="button" data-choose-manually>Choose manually instead</button></div><button class="button button-outline location-retry" type="button" data-location-retry hidden>Try again</button><small class="location-privacy">Approximate straight-line distance. Your coordinates stay on this device and are not saved.</small></dialog>
+  <dialog id="nearest-branch-dialog" class="nearest-branch-dialog" aria-labelledby="nearest-branch-title"><button class="dialog-close" data-close-nearest aria-label="Close location finder"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><div class="location-scan" aria-hidden="true"><span></span><span></span><span></span><i><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.3-7-10a7 7 0 1 1 14 0c0 5.7-7 10-7 10z"/><circle cx="12" cy="11" r="2.4"/></svg></i></div><p class="eyebrow" data-location-eyebrow>Finding your nearest Jopeem</p><h2 id="nearest-branch-title" data-location-title>Checking your location…</h2><p class="location-status" data-location-status role="status" aria-live="polite">Please allow location access when your browser asks.</p><div class="nearest-result" data-nearest-result hidden><span class="nearest-result-mark" aria-hidden="true">✓</span><p>Based on your current position, your closest branch is</p><h3 data-nearest-name></h3><small data-nearest-detail></small><button class="button button-primary" type="button" data-confirm-nearest>Use this branch <span>→</span></button><a class="button button-outline nearest-directions" data-nearest-directions href="#" target="_blank" rel="noopener">Get directions <span>↗</span></a><button class="text-button" type="button" data-choose-manually>Choose manually instead</button></div><button class="button button-outline location-retry" type="button" data-location-retry hidden>Try again</button><small class="location-privacy">Approximate straight-line distance. Your coordinates stay on this device and are not saved.</small></dialog>
+  <dialog id="preferences-dialog" class="preferences-dialog" aria-labelledby="preferences-title">
+    <button class="dialog-close" data-close-dialog aria-label="Close personalization settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <p class="eyebrow">On this device</p>
+    <h2 id="preferences-title">Your preferences</h2>
+    <p>Jopeem can remember your branch and safe browsing preferences on this device to make future visits quicker. This information stays on this device.</p>
+    <p id="preferences-state" class="preferences-state"></p>
+    <div class="preferences-actions">
+      <button class="button button-primary" type="button" id="enable-preferences">Remember convenience preferences</button>
+      <button class="button button-outline" type="button" id="clear-preferences">Clear my preferences</button>
+      <button class="text-button" type="button" id="disable-preferences">Disable personalization</button>
+    </div>
   </dialog>
 </body>
 </html>
