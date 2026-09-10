@@ -28,7 +28,7 @@
       <span class="brand-mark"><img src="assets/Favicon/favicon.svg" alt="" width="44" height="44"></span><span><b>JOPEEM</b><small>Pharmacy & Health Care</small></span>
     </a>
     <nav id="nav" aria-label="Main navigation">
-      <a href="#services">Services</a><a href="#catalog">Catalog</a><a href="#about">About</a><a href="#contact">Location</a><a href="#contact">Contact</a>
+      <a href="#services">Services</a><a href="#products">Products</a><a href="#about">About</a><a href="#contact">Location</a><a href="#contact">Contact</a>
     </nav>
     <div class="header-actions">
       <button class="icon-button cart-button" data-open-cart aria-label="Open cart">Checkout <span class="cart-count">0</span></button>
@@ -46,7 +46,7 @@
         <p class="hero-lead">Your community pharmacy for quality medicines, everyday health checks and professional pharmacy guidance.</p>
         <div class="hero-actions">
           <a class="button button-primary wa-link" href="#" data-wa-compose data-wa-context="general">Chat with our pharmacy team <span>↗</span></a>
-          <a class="button button-ghost" href="#catalog">Browse products</a>
+          <a class="button button-ghost" href="#products">Browse products</a>
         </div>
         <div class="branch-pill"><span class="pulse"></span><div><b data-hero-branch>Nyanama Trading Centre</b><small data-hero-hours>Open today · 7:00 AM–12 Midnight</small><span class="branch-pill-links"><button type="button" data-open-branch>Change branch</button><a href="#contact">View both branches →</a></span></div></div>
       </div>
@@ -151,14 +151,40 @@
 
         <div class="services-catalog-bridge">
           <div><p class="eyebrow">Medicines &amp; health products</p><h3>Looking for a medicine or health product?</h3><p>Explore our medicine range, medical supplies, diagnostics and personal care products, or ask our team to confirm availability.</p></div>
-          <div class="services-catalog-actions"><a class="button button-dark" href="#catalog">Browse products</a><a class="button button-ghost medicine-enquiry-trigger" href="#">Ask about a medicine</a></div>
+          <div class="services-catalog-actions"><a class="button button-dark" href="#products">Browse products</a><a class="button button-ghost medicine-enquiry-trigger" href="#">Ask about a medicine</a></div>
         </div>
       </div>
     </section>
 
-    <section class="section catalog" id="catalog">
-      <div class="wrap catalog-intro catalog-intro-simple">
-        <div><p class="eyebrow">In our pharmacy</p><h2>Medicines, health essentials &amp; everyday care.</h2><p>Explore our product range or contact our pharmacy team to confirm medicine availability.</p></div>
+    <section class="section catalog catalog-discovery" id="products">
+      <div class="wrap homepage-category-panel">
+        <div class="homepage-category-intro">
+          <p class="eyebrow">Browse our range</p>
+          <h2>Shop by product category</h2>
+          <p>Explore our main product categories and find what you need.</p>
+        </div>
+        <div class="homepage-category-grid" aria-label="Product categories">
+          <a class="homepage-category-card medicine-category-card medicine-enquiry-trigger" href="#">
+            <img src="assets/images/medicines-category.jpg" alt="Medicines" loading="lazy">
+            <span class="homepage-category-card-body"><strong>Medicines</strong><span class="category-card-link" aria-hidden="true">→</span></span>
+          </a>
+          <a class="homepage-category-card" href="products.html?category=cosmetics">
+            <img src="assets/images/cosmetics-category.jpg" alt="Cosmetics" loading="lazy">
+            <span class="homepage-category-card-body"><strong>Cosmetics</strong><span class="category-card-link" aria-hidden="true">→</span></span>
+          </a>
+          <a class="homepage-category-card" href="products.html?category=sundries">
+            <img src="assets/images/sundries-category.jpg" alt="Health Essentials" loading="lazy">
+            <span class="homepage-category-card-body"><strong>Health Essentials</strong><span class="category-card-link" aria-hidden="true">→</span></span>
+          </a>
+          <a class="homepage-category-card" href="products.html?category=diagnostics">
+            <img src="assets/images/diagnostics-category.jpg" alt="Diagnostics" loading="lazy">
+            <span class="homepage-category-card-body"><strong>Diagnostics</strong><span class="category-card-link" aria-hidden="true">→</span></span>
+          </a>
+          <a class="homepage-category-card" href="products.html?category=medical-devices">
+            <img src="assets/images/medical-devices-category.jpg" alt="Medical Devices" loading="lazy">
+            <span class="homepage-category-card-body"><strong>Medical Devices</strong><span class="category-card-link" aria-hidden="true">→</span></span>
+          </a>
+        </div>
       </div>
 
       <div class="wrap medicine-range">
@@ -167,11 +193,9 @@
             <p class="eyebrow light">Medicines</p>
             <h3><strong>6,800+</strong> medicines available</h3>
             <p>Looking for a particular medicine? Tell our pharmacy team the medicine name and we’ll help confirm availability.</p>
-            <a class="button button-white medicine-enquiry-trigger" href="#">Ask about a medicine</a>
           </div>
           <div class="medicine-finder-image"><img src="assets/images/tablets-compressed.jpg" alt="A selection of medicine tablets" loading="lazy"></div>
         </div>
-
         <div class="medicine-forms">
           <div class="catalog-subheading"><h3>Common medicine forms</h3><p>Our range includes many familiar medicine forms and preparations.</p></div>
           <div class="medicine-form-grid">
@@ -181,37 +205,6 @@
             <article class="medicine-form-card"><img src="assets/images/capsules-compressed.jpg" alt="Medicine capsules" loading="lazy"><div><h4>Capsules</h4><p>489 items</p></div></article>
             <article class="medicine-form-card"><img src="assets/images/drops-compressed.jpg" alt="Medicine drops" loading="lazy"><div><h4>Drops</h4><p>260 items</p></div></article>
             <article class="medicine-form-card"><img src="assets/images/inhalers-compressed.jpg" alt="Medicine inhalers and other medicine forms" loading="lazy"><div><h4>More Medicine Forms</h4><p>Injections, inhalers, sprays, powders &amp; sachets</p></div></article>
-          </div>
-        </div>
-      </div>
-
-      <div class="wrap browse-catalog">
-        <div class="browse-catalog-heading">
-          <div><p class="eyebrow">Shop by category</p><h2>Health &amp; personal care</h2></div>
-          <p>Browse selected products available from Jopeem Pharmacy.</p>
-        </div>
-
-        <div class="catalog-category-grid" role="tablist" aria-label="Product categories">
-          <button class="catalog-category-card active" type="button" role="tab" aria-selected="true" data-category="Cosmetics"><span class="category-monogram">C</span><span><b>Cosmetics</b><small>168 products</small></span><i aria-hidden="true">→</i></button>
-          <button class="catalog-category-card" type="button" role="tab" aria-selected="false" data-category="Sundries"><span class="category-monogram">H</span><span><b>Health Essentials</b><small>220 products</small></span><i aria-hidden="true">→</i></button>
-          <button class="catalog-category-card" type="button" role="tab" aria-selected="false" data-category="Diagnostics"><span class="category-monogram">D</span><span><b>Diagnostics</b><small>46 products</small></span><i aria-hidden="true">→</i></button>
-          <button class="catalog-category-card" type="button" role="tab" aria-selected="false" data-category="Medical Devices"><span class="category-monogram">M</span><span><b>Medical Devices</b><small>40 products</small></span><i aria-hidden="true">→</i></button>
-        </div>
-
-        <div class="catalog-browser" id="catalog-results" role="tabpanel" tabindex="-1">
-          <div class="catalog-browser-head"><p class="eyebrow">Selected category</p><h3 id="selected-category-title">Cosmetics</h3></div>
-          <div id="subgroup-chips" class="subgroup-chips" aria-label="Filter products by subcategory"></div>
-          <select id="subgroup-filter" class="subgroup-select-fallback" aria-label="Filter by subcategory" tabindex="-1"><option value="all">All</option></select>
-          <div class="catalog-search-row">
-            <label class="catalog-search"><span class="sr-only">Search products</span><span aria-hidden="true">⌕</span><input id="product-search" type="search" placeholder="Search products…"></label>
-            <span id="result-count" aria-live="polite"></span>
-          </div>
-          <div id="product-grid" class="product-grid" aria-live="polite"><p class="loading">Loading catalog…</p></div>
-          <button id="load-more" class="button button-outline">Show more products</button>
-
-          <div class="catalog-help">
-            <div><h3>Can’t find what you need?</h3><p>Tell us the product you need and our pharmacy team will help check availability.</p></div>
-            <button class="button button-outline product-enquiry-trigger" type="button">Enter product details →</button>
           </div>
         </div>
       </div>
@@ -343,7 +336,7 @@
     <section class="closing-cta"><div class="wrap"><div><p class="eyebrow light">Here when you need us</p><h2>Need help finding a medicine or service?</h2><p>Speak with our pharmacy team at <span data-closing-branch>Nyanama Trading Centre</span>, open daily from <span data-closing-hours>7:00 AM–12 Midnight</span>.</p></div><a class="button button-primary wa-link" href="#" data-wa-compose data-wa-context="help">Chat on WhatsApp <span>↗</span></a></div></section>
   </main>
 
-  <footer><div class="wrap footer-grid"><div><a class="brand footer-brand" href="#top"><span class="brand-mark"><img src="assets/Favicon/favicon.svg" alt="" width="44" height="44"></span><span><b>JOPEEM</b><small>Pharmacy & Health Care</small></span></a><p>Adding years of Health to your life.</p></div><div><b>Explore</b><a href="#services">Services</a><a href="#catalog">Catalog</a><a href="#about">About</a><a href="#contact">Contact</a><a href="dashboard.html" aria-label="Open admin dashboard">Admin</a></div><div><b>Follow us</b><div class="socials"><!-- TODO: awaiting client social handles --><span aria-label="Facebook — handle coming soon" title="Facebook handle coming soon">f</span><span aria-label="Instagram — handle coming soon" title="Instagram handle coming soon">◎</span><a class="wa-link" href="#" aria-label="WhatsApp">w</a></div></div></div><div class="wrap copyright"><span>© 2026 Jopeem Pharmacy and Health Care Centre Ltd.</span><button class="text-button preferences-footer-link" type="button" id="open-preferences-footer">Personalization settings</button><a class="site-credit" href="https://solomantalgo.com" target="_blank" rel="noopener">Site by SolomanTalgo Web Design</a></div></footer>
+  <footer><div class="wrap footer-grid"><div><a class="brand footer-brand" href="#top"><span class="brand-mark"><img src="assets/Favicon/favicon.svg" alt="" width="44" height="44"></span><span><b>JOPEEM</b><small>Pharmacy & Health Care</small></span></a><p>Adding years of Health to your life.</p></div><div><b>Explore</b><a href="#services">Services</a><a href="#products">Products</a><a href="#about">About</a><a href="#contact">Contact</a><a href="dashboard.html" aria-label="Open admin dashboard">Admin</a></div><div><b>Follow us</b><div class="socials"><!-- TODO: awaiting client social handles --><span aria-label="Facebook — handle coming soon" title="Facebook handle coming soon">f</span><span aria-label="Instagram — handle coming soon" title="Instagram handle coming soon">◎</span><a class="wa-link" href="#" aria-label="WhatsApp">w</a></div></div></div><div class="wrap copyright"><span>© 2026 Jopeem Pharmacy and Health Care Centre Ltd.</span><button class="text-button preferences-footer-link" type="button" id="open-preferences-footer">Personalization settings</button><a class="site-credit" href="https://solomantalgo.com" target="_blank" rel="noopener">Site by SolomanTalgo Web Design</a></div></footer>
 
   <div class="feedback-launcher">
     <button class="feedback-fab" type="button" id="open-feedback" aria-haspopup="dialog" aria-controls="feedback-dialog">
