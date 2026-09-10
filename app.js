@@ -1,6 +1,8 @@
 const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
 function readStoredCart(){try{const value=JSON.parse(localStorage.getItem('jopeem-cart')||'[]');return Array.isArray(value)?value:[]}catch{return[]}}
 const state={category:'Cosmetics',subgroup:'all',search:'',limit:18,catalog:{},cart:readStoredCart(),number:'256788570123',branch:'Nyanama Trading Centre'};
+const FEEDBACK_ENDPOINT="PASTE_APPS_SCRIPT_WEB_APP_URL_HERE";
+const FEEDBACK_TYPES=["Website experience","Product availability","Service experience","Staff/customer care","Other"];
 const BRANCHES={
   "Nyanama Trading Centre":{key:"nyanama",short:"Nyanama",hours:"7:00 AM–12 Midnight",notice:"Nyanama until 12 Midnight",phone:"256702774852",phoneDisplay:"0702 774 852",whatsapp:"256788570123",openMinutes:420,closeMinutes:1440,closeLabel:"12 Midnight",lat:0.27092,lng:32.55366,mapEmbedUrl:"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3989.7737160787146!2d32.55108507766623!3d0.2709253640879764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMMKwMTYnMTUuMyJOIDMywrAzMycxMy4yIkU!5e0!3m2!1sen!2sug!4v1788962420904!5m2!1sen!2sug"},
   "Lebron Shopping Complex, Nalumunye":{key:"nalumunye",short:"Nalumunye",hours:"7:00 AM–10:00 PM",notice:"Nalumunye until 10:00 PM",phone:"256756744345",phoneDisplay:"0756 744 345",whatsapp:"256777094870",openMinutes:420,closeMinutes:1320,closeLabel:"10:00 PM",lat:0.26641,lng:32.53006,mapEmbedUrl:"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3989.7751887389795!2d32.527485077666256!3d0.2664153640945249!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMMKwMTUnNTkuMSJOIDMywrAzMSc0OC4yIkU!5e0!3m2!1sen!2sug!4v1788962294353!5m2!1sen!2sug"}
@@ -120,6 +122,7 @@ function applyBranch(name,remember=false){
   });
   $$("[data-select-branch]").forEach(button=>{const selected=button.dataset.selectBranch===branchName;button.classList.toggle("selected",selected);button.setAttribute("aria-pressed",String(selected))});
   setWaLinks();updateBranchStatus();
+  updateFeedbackBranch(branchName);
   if(branchMapController)focusBranchOnMap(branchName);
 }
 let branchMapController=null;
@@ -173,6 +176,97 @@ function initBranchMap(){
   });
   branchMapController={focus:updateBranchMap};
   updateBranchMap(initialName);
+}
+
+
+function updateFeedbackBranch(name){
+  const branch=$('#feedback-branch');
+  if(branch)branch.textContent=BRANCHES[name]?name:state.branch;
+}
+function setFeedbackStatus(message,type=""){
+  const status=$('#feedback-status');
+  if(!status)return;
+  status.textContent=message;
+  status.className="feedback-status"+(type?" "+type:"");
+  status.hidden=!message;
+}
+function resetFeedbackForm(){
+  const form=$('#feedback-form');
+  if(!form)return;
+  form.reset();
+  $('#feedback-rating').value="";
+  $$('.feedback-star').forEach(star=>{
+    star.classList.remove('selected');
+    star.setAttribute('aria-pressed','false');
+  });
+  $('#feedback-count').textContent="0";
+  $('#feedback-rating-error').hidden=true;
+}
+function initFeedback(){
+  const dialog=$('#feedback-dialog'),form=$('#feedback-form'),open=$('#open-feedback');
+  if(!dialog||!form||!open)return;
+  let sending=false;
+  const ratingInput=$('#feedback-rating'),typeInput=$('#feedback-type'),commentInput=$('#feedback-comment'),submit=$('#feedback-submit');
+  const configured=()=>FEEDBACK_ENDPOINT.indexOf("https://script.google.com/macros/s/")===0;
+  const validate=()=>{
+    const rating=Number(ratingInput.value),type=String(typeInput.value||"");
+    const validRating=rating>=1&&rating<=5;
+    $('#feedback-rating-error').hidden=validRating;
+    if(!validRating){setFeedbackStatus("Please choose a rating.","error");return false}
+    if(!FEEDBACK_TYPES.includes(type)){setFeedbackStatus("Please choose a feedback type.","error");typeInput.focus();return false}
+    return true;
+  };
+  $$('.feedback-star').forEach(star=>star.addEventListener('click',()=>{
+    const value=Number(star.dataset.feedbackRating);
+    ratingInput.value=String(value);
+    $$('.feedback-star').forEach(item=>{
+      const selected=Number(item.dataset.feedbackRating)<=value;
+      item.classList.toggle('selected',selected);
+      item.setAttribute('aria-pressed',String(selected));
+    });
+    $('#feedback-rating-error').hidden=true;
+    if($('#feedback-status').classList.contains('error'))setFeedbackStatus("");
+  }));
+  commentInput.addEventListener('input',()=>$('#feedback-count').textContent=String(commentInput.value.length));
+  open.addEventListener('click',()=>{
+    updateFeedbackBranch(state.branch);
+    setFeedbackStatus("");
+    dialog.showModal();
+  });
+  form.addEventListener('submit',async event=>{
+    event.preventDefault();
+    if(sending||!validate())return;
+    if(!configured()){
+      setFeedbackStatus("Feedback is temporarily unavailable. Please try again later.","error");
+      return;
+    }
+    sending=true;
+    submit.disabled=true;
+    submit.textContent="Sending…";
+    setFeedbackStatus("Sending your feedback…","sending");
+    const payload={
+      rating:ratingInput.value,
+      feedbackType:typeInput.value,
+      branch:state.branch,
+      comment:commentInput.value.trim(),
+      source:"Website"
+    };
+    try{
+      const response=await fetch(FEEDBACK_ENDPOINT,{method:"POST",body:new URLSearchParams(payload)});
+      const result=await response.json();
+      if(!response.ok||!result.success)throw new Error("Feedback request failed");
+      resetFeedbackForm();
+      updateFeedbackBranch(state.branch);
+      setFeedbackStatus("Thank you. Your feedback has been received.","success");
+    }catch(error){
+      console.error("Feedback submission failed.",error);
+      setFeedbackStatus("We couldn't send your feedback. Please try again.","error");
+    }finally{
+      sending=false;
+      submit.disabled=false;
+      submit.textContent="Submit feedback";
+    }
+  });
 }
 
 function parseCatalog(md){
@@ -258,7 +352,7 @@ document.querySelector("#clear-cart").onclick=()=>{state.cart=[];saveCart()};
 document.querySelector("#branch-dialog")?.addEventListener("close",()=>setTimeout(maybeShowPreferenceDialog,150));
 $$("select[name=branch]").forEach(select=>select.addEventListener("change",event=>applyBranch(event.target.value,true)));document.querySelector("#start-checkout").onclick=()=>{closeCart();document.querySelector("#checkout-form").elements.branch.value=state.branch;document.querySelector("#checkout-dialog").showModal()};
 $('#checkout-form').onsubmit=e=>{e.preventDefault();const d=new FormData(e.target),items=state.cart.map(x=>`• ${x.name} × ${x.qty}`).join('\n');const msg=`Hello Jopeem Pharmacy, I would like to submit an order enquiry.\n\nName: ${d.get('name')}\nPhone: ${d.get('phone')}\nPreferred branch: ${d.get('branch')}\n\nItems:\n${items}\n\nNotes: ${d.get('notes')||'None'}\n\nPlease confirm prices and availability.`;window.open(wa(msg),'_blank','noopener')};
-applyBranch(state.branch,false);renderCart();renderQuickAccess();initBranchMap();loadCatalog();setInterval(updateBranchStatus,1000);
+applyBranch(state.branch,false);renderCart();renderQuickAccess();initBranchMap();initFeedback();loadCatalog();setInterval(updateBranchStatus,1000);
 if(!preferences.preferredBranch)setTimeout(()=>document.querySelector("#branch-dialog").showModal(),900);
 setTimeout(maybeShowPreferenceDialog,preferences.preferredBranch?1100:1500);
 
