@@ -14,7 +14,7 @@ Timestamp | Rating | Feedback Type | Branch | Comment | Source
 4. Deploy it as a Web app.
 5. Choose the appropriate access permission for the intended public website submissions.
 6. Copy the deployed Web App URL.
-7. Replace PASTE_APPS_SCRIPT_WEB_APP_URL_HERE in app.js as the FEEDBACK_ENDPOINT value.
+7. Replace the FEEDBACK_ENDPOINT value in app.js with the deployed Web App URL.
 8. Publish the updated website.
 
 The Apps Script creates the Feedback tab and headers if they are missing, validates all fields, and creates the timestamp on the server.

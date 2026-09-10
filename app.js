@@ -1,7 +1,7 @@
 const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
 function readStoredCart(){try{const value=JSON.parse(localStorage.getItem('jopeem-cart')||'[]');return Array.isArray(value)?value:[]}catch{return[]}}
 const state={category:'Cosmetics',subgroup:'all',search:'',limit:18,catalog:{},cart:readStoredCart(),number:'256788570123',branch:'Nyanama Trading Centre'};
-const FEEDBACK_ENDPOINT="PASTE_APPS_SCRIPT_WEB_APP_URL_HERE";
+const FEEDBACK_ENDPOINT="https://script.google.com/macros/s/AKfycbwt77YE3EHukWLKugkTHCh4Qty5oKSKxKv9o7F3OMEBpLqwmnYJPJd52BCxr4xqyXDl8g/exec";
 const FEEDBACK_TYPES=["Website experience","Product availability","Service experience","Staff/customer care","Other"];
 const BRANCHES={
   "Nyanama Trading Centre":{key:"nyanama",short:"Nyanama",hours:"7:00 AM–12 Midnight",notice:"Nyanama until 12 Midnight",phone:"256702774852",phoneDisplay:"0702 774 852",whatsapp:"256788570123",openMinutes:420,closeMinutes:1440,closeLabel:"12 Midnight",lat:0.27092,lng:32.55366,mapEmbedUrl:"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3989.7737160787146!2d32.55108507766623!3d0.2709253640879764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMMKwMTYnMTUuMyJOIDMywrAzMycxMy4yIkU!5e0!3m2!1sen!2sug!4v1788962420904!5m2!1sen!2sug"},
