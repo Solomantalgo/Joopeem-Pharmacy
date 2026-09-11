@@ -50,7 +50,7 @@ function recordCategoryInterest(category){if(SAFE_PREFERENCE_CATEGORIES.has(cate
 function recordSubgroupInterest(category,group){if(group!=='all'&&isSafeProduct(category,group))preferenceSignal({type:'subgroup',category,group,weight:1.5})}
 function recordProductInterest(product){if(isSafeProduct(product.category,product.group))preferenceSignal({type:'product',category:product.category,group:product.group,name:product.name,weight:3})}
 function showPreferencePrompt(){
-  const area=$('#quick-access'),items=$('#quick-access-items');
+  const area=document.getElementById("quick-access"),items=document.getElementById("quick-access-items");
   if(!area||preferences.enabled!==null)return;
   area.hidden=false;
   items.innerHTML='<div class="quick-access-prompt"><b>Make future visits quicker?</b><p>We can remember safe browsing preferences on this device only. <button type="button" class="text-button" id="prompt-enable">Allow</button> <button type="button" class="text-button" id="prompt-decline">No thanks</button></p></div>';
@@ -69,18 +69,20 @@ function clearPreferences(){
   preferences=preferenceDefaults();pendingPreferenceSignal=null;window.__jopeemPendingPreferenceSignal=null;state.branch='Nyanama Trading Centre';applyBranch(state.branch,false);renderQuickAccess();updatePreferencesDialog()
 }
 function renderQuickAccess(){
-  const area=$('#quick-access'),items=$('#quick-access-items');
+  const area=document.getElementById("quick-access"),items=document.getElementById("quick-access-items");
   if(!area||!items)return;
   if(preferences.enabled!==true){area.hidden=true;return}
   const categories=Object.entries(preferences.categories).map(([key,value])=>({key,score:ageScore(value)})).filter(x=>x.score>.2).sort((a,b)=>b.score-a.score).slice(0,2);
   const groups=Object.entries(preferences.subgroups).map(([key,value])=>({key,category:value.category||'Sundries',score:ageScore(value)})).filter(x=>x.score>.2).sort((a,b)=>b.score-a.score).slice(0,2);
   const recent=preferences.recentItems.slice(0,6),cards=[];
-  if(preferences.preferredBranch&&BRANCHES[preferences.preferredBranch])cards.push('<button type="button" class="quick-access-card" data-quick-branch="'+escapeHtml(preferences.preferredBranch)+'"><small>Your usual branch</small><b>'+escapeHtml(BRANCHES[preferences.preferredBranch].short)+'</b><span>Use this branch</span></button>');
-  categories.forEach(x=>cards.push('<button type="button" class="quick-access-card" data-quick-category="'+escapeHtml(x.key)+'"><small>Category</small><b>'+escapeHtml(displayCategory(x.key))+'</b><span>Open this category</span></button>'));
-  groups.forEach(x=>cards.push('<button type="button" class="quick-access-card" data-quick-category="'+escapeHtml(x.category)+'" data-quick-group="'+escapeHtml(x.key)+'"><small>Subgroup</small><b>'+escapeHtml(displayGroup(x.key))+'</b><span>Browse this subgroup</span></button>'));
-  recent.forEach(x=>cards.push('<button type="button" class="quick-access-card" data-quick-product="'+escapeHtml(x.name)+'" data-quick-category="'+escapeHtml(x.category)+'" data-quick-group="'+escapeHtml(x.group)+'"><small>Recent interest</small><b>'+escapeHtml(x.name)+'</b><span>'+escapeHtml(displayCategory(x.category))+' · '+escapeHtml(displayGroup(x.group))+'</span></button>'));
-  if(!cards.length){area.hidden=true;return}
-  area.hidden=false;items.innerHTML=cards.join('');
+  const icons={branch:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="2.5"/></svg>',category:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg>',recent:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg>'};
+  const card=(icon,label,title,action,attrs)=>'<button type="button" class="quick-access-card" '+attrs+'><span class="quick-access-icon" aria-hidden="true">'+icon+'</span><span class="quick-access-card-copy"><small>'+label+'</small><b>'+title+'</b><span>'+action+'</span></span><i aria-hidden="true">→</i></button>';
+  if(preferences.preferredBranch&&BRANCHES[preferences.preferredBranch])cards.push(card(icons.branch,'Your usual branch',escapeHtml(BRANCHES[preferences.preferredBranch].short),'Use this branch','data-quick-branch="'+escapeHtml(preferences.preferredBranch)+'"'));
+  categories.forEach(x=>cards.push(card(icons.category,'Category',escapeHtml(displayCategory(x.key)),'Open category','data-quick-category="'+escapeHtml(x.key)+'"')));
+  groups.forEach(x=>cards.push(card(icons.category,'Subgroup',escapeHtml(displayGroup(x.key)),'Browse subgroup','data-quick-category="'+escapeHtml(x.category)+'" data-quick-group="'+escapeHtml(x.key)+'"')));
+  recent.forEach(x=>cards.push(card(icons.recent,'Recently viewed',escapeHtml(x.name),'View again · '+escapeHtml(displayCategory(x.category)),'data-quick-product="'+escapeHtml(x.name)+'" data-quick-category="'+escapeHtml(x.category)+'" data-quick-group="'+escapeHtml(x.group)+'"')));
+  area.hidden=false;
+  items.innerHTML=cards.length?cards.join(''):'<div class="quick-access-empty"><p>Quick access becomes more useful as you browse Jopeem.</p><a class="button button-outline" href="#products">Browse products <span>→</span></a></div>';
 }
 function openCatalogContext(category,group='all',search=''){
   if(!$('#catalog-results')){const query=new URLSearchParams({category:category||'Cosmetics'});if(group&&group!=='all')query.set('subcategory',group);if(search)query.set('search',search);window.location.href='products.html?'+query.toString();return}
@@ -530,3 +532,28 @@ function updateBranchStatus(){
   document.querySelector("[data-confirm-nearest]",dialog).addEventListener("click",()=>{if(suggestedBranch)applyBranch(suggestedBranch,true);dialog.close()});
   document.querySelector("[data-choose-manually]",dialog).addEventListener("click",()=>{dialog.close();picker.showModal()});
 })();
+
+function initQuickAccessCarousel(){
+  const track=document.getElementById("quick-access-items");
+  if(!track)return;
+  let timer=0,resumeTimer=0,interacting=false,inViewport=false;
+  const cards=()=>[...track.querySelectorAll(".quick-access-card")];
+  const narrow=()=>window.matchMedia("(max-width: 767px)").matches;
+  const reduced=()=>window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const clear=()=>{clearTimeout(timer);clearTimeout(resumeTimer);timer=0;resumeTimer=0};
+  const nearest=()=>{const list=cards();if(!list.length)return 0;const center=track.scrollLeft+track.clientWidth/2;return list.reduce((best,card,i)=>Math.abs(card.offsetLeft+card.offsetWidth/2-center)<Math.abs(list[best].offsetLeft+list[best].offsetWidth/2-center)?i:best,0)};
+  const schedule=()=>{clearTimeout(timer);timer=0;const list=cards();if(!narrow()||list.length<2||reduced()||!inViewport||document.hidden||interacting)return;timer=setTimeout(()=>{const listNow=cards(),current=nearest(),next=listNow[(current+1)%listNow.length];if(!next)return;track.scrollTo({left:Math.max(0,next.offsetLeft-track.offsetLeft),behavior:"smooth"});schedule()},4000)};
+  const pause=()=>{clearTimeout(timer);clearTimeout(resumeTimer);timer=0;interacting=true;resumeTimer=setTimeout(()=>{interacting=false;schedule()},7000)};
+  track.addEventListener("pointerdown",pause,{passive:true});
+  track.addEventListener("touchstart",pause,{passive:true});
+  track.addEventListener("focusin",pause);
+  track.addEventListener("pointerenter",()=>{if(window.matchMedia&&window.matchMedia("(hover: hover)").matches)pause()},{passive:true});
+  track.addEventListener("pointerleave",pause,{passive:true});
+  track.addEventListener("scroll",()=>{if(!interacting)nearest()},{passive:true});
+  document.addEventListener("visibilitychange",()=>{if(document.hidden)clear();else{interacting=false;schedule()}});
+  if("IntersectionObserver" in window)new IntersectionObserver(entries=>{inViewport=entries[0].isIntersecting;if(inViewport)schedule();else clear()},{rootMargin:"120px 0px"}).observe(track);
+  else{inViewport=true;schedule()}
+  new MutationObserver(()=>schedule()).observe(track,{childList:true});
+  window.addEventListener("resize",()=>{if(!narrow())clear();else schedule()},{passive:true});
+}
+initQuickAccessCarousel();
