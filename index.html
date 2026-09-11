@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="images/jopeem-hero.png" type="image/png" fetchpriority="high">
   <link rel="stylesheet" href="styles.css">
-  <script src="app.js" defer></script>
+  <script src="translations.js" defer></script><script src="app.js" defer></script><script src="public-i18n.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -28,11 +28,11 @@
       <span class="brand-mark"><img src="assets/Favicon/favicon.svg" alt="" width="44" height="44"></span><span><b>JOPEEM</b><small>Pharmacy & Health Care</small></span>
     </a>
     <nav id="nav" aria-label="Main navigation">
-      <a href="#services">Services</a><a href="#products">Products</a><a href="#about">About</a><a href="#contact">Location</a><a href="#contact">Contact</a>
-    </nav>
+      <a href="#services" data-i18n="nav.services">Services</a><a href="#products" data-i18n="nav.products">Products</a><a href="#about" data-i18n="nav.about">About</a><a href="#contact" data-i18n="nav.location">Location</a><a href="#contact" data-i18n="nav.contact">Contact</a>
+    </nav><div class="language-switcher" data-language-switcher><button class="language-toggle" type="button" data-language-toggle aria-haspopup="true" aria-expanded="false" aria-label="Choose language"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.2 2.5 3.3 5.5 3.3 9S14.2 19.5 12 21c-2.2-1.5-3.3-5.5-3.3-9S9.8 5.5 12 3z"/></svg><span data-language-current>EN</span><span aria-hidden="true">▾</span></button><div class="language-menu" data-language-menu role="menu" hidden><button type="button" role="menuitemradio" data-language-option="en" aria-checked="true">English</button><button type="button" role="menuitemradio" data-language-option="lg" aria-checked="false">Luganda</button></div></div>
     <div class="header-actions">
-      <button class="icon-button cart-button" data-open-cart aria-label="Open cart">Checkout <span class="cart-count">0</span></button>
-      <button class="icon-button menu-button" aria-controls="nav" aria-expanded="false">Menu</button>
+      <button class="icon-button cart-button" data-open-cart aria-label="Open cart"><span data-i18n="nav.checkout">Checkout</span> <span class="cart-count">0</span></button>
+      <button class="icon-button menu-button" aria-controls="nav" aria-expanded="false" data-i18n="nav.menu">Menu</button>
     </div>
   </header>
 
@@ -46,30 +46,30 @@
         <p class="hero-lead">Your community pharmacy for quality medicines, everyday health checks and professional pharmacy guidance.</p>
         <div class="hero-actions">
           <a class="button button-primary wa-link" href="#" data-wa-compose data-wa-context="general">Chat with our pharmacy team <span>↗</span></a>
-          <a class="button button-ghost" href="#products">Browse products</a>
+          <a class="button button-ghost" href="#products" data-i18n="actions.browseProducts">Browse products</a>
         </div>
         <div class="branch-pill"><span class="pulse"></span><div><b data-hero-branch>Nyanama Trading Centre</b><small data-hero-hours>Open today · 7:00 AM–12 Midnight</small><span class="branch-pill-links"><button type="button" data-open-branch>Change branch</button><a href="#contact">View both branches →</a></span></div></div>
       </div>
     </section>
 
     <section class="quick-actions wrap" aria-labelledby="quick-actions-title">
-      <div class="quick-actions-head"><p class="eyebrow">Quick help</p><h2 id="quick-actions-title">What can we help you with?</h2></div>
+      <div class="quick-actions-head"><p class="eyebrow" data-i18n="actions.findMedicine">Quick help</p><h2 id="quick-actions-title">What can we help you with?</h2></div>
       <div class="quick-actions-grid">
         <a class="quick-action wa-link" href="#">
           <span class="quick-action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4h8v4H8zM6 8h12v12H6zM9 12h6M12 9v6"/></svg></span>
-          <span><b>Find a Medicine</b><small>Ask us to check availability</small></span><i aria-hidden="true">→</i>
+          <span><b data-i18n="actions.findMedicine">Find a Medicine</b><small>Ask us to check availability</small></span><i aria-hidden="true">→</i>
         </a>
         <a class="quick-action" href="#services">
           <span class="quick-action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.3-7-10a4 4 0 0 1 7-2.8A4 4 0 0 1 19 11c0 5.7-7 10-7 10z"/><path d="M8.5 13h2l1-2.5 1.5 5 1-2.5h2"/></svg></span>
-          <span><b>Health Services</b><small>View checks &amp; consultations</small></span><i aria-hidden="true">→</i>
+          <span><b data-i18n="actions.healthServices">Health Services</b><small>View checks &amp; consultations</small></span><i aria-hidden="true">→</i>
         </a>
         <a class="quick-action" data-branch-call href="tel:+256702774852">
           <span class="quick-action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7.2 3.5 10 7.8 8.3 10c1.2 2.5 3.2 4.5 5.7 5.7l2.2-1.7 4.3 2.8-.8 3.2c-.2.8-1 1.4-1.9 1.3C9.9 20.3 3.7 14.1 2.7 6.2c-.1-.9.5-1.7 1.3-1.9z"/></svg></span>
-          <span><b>Call Pharmacy</b><small>Speak with our team</small></span><i aria-hidden="true">→</i>
+          <span><b data-i18n="actions.callPharmacy">Call Pharmacy</b><small>Speak with our team</small></span><i aria-hidden="true">→</i>
         </a>
         <a class="quick-action" href="#contact">
           <span class="quick-action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
-          <span><b>Get Directions</b><small>Find our branches</small></span><i aria-hidden="true">→</i>
+          <span><b data-i18n="actions.getDirections">Get Directions</b><small>Find our branches</small></span><i aria-hidden="true">→</i>
         </a>
       </div>
     </section>
@@ -78,10 +78,10 @@
 
     <section class="quick-access-section wrap" id="quick-access" hidden aria-labelledby="quick-access-title">
       <div class="quick-access-head">
-        <div><p class="eyebrow">Welcome back</p><h2 id="quick-access-title">Quick access</h2><p>Your shortcuts, based on your recent activity.</p></div>
+        <div><p class="eyebrow" data-i18n="quickAccess.welcome">Welcome back</p><h2 id="quick-access-title" data-i18n="quickAccess.title">Quick access</h2><p>Your shortcuts, based on your recent activity.</p></div>
       </div>
       <div id="quick-access-items" class="quick-access-items"></div>
-      <button class="quick-access-preferences" type="button" id="open-preferences">Manage preferences</button>
+      <button class="quick-access-preferences" type="button" id="open-preferences" data-i18n="actions.managePreferences">Manage preferences</button>
     </section>
 
     <section class="trust-strip wrap" aria-label="Why choose Jopeem">
@@ -101,7 +101,7 @@
         <article class="service-feature">
           <div class="service-feature-media"><img src="assets/images/freeconsultation-compressed.jpg" alt="Pharmacist speaking with a customer during a consultation"></div>
           <div class="service-feature-copy">
-            <p class="eyebrow">Free consultation</p>
+            <p class="eyebrow" data-i18n="common.freeConsultation">Free consultation</p>
             <h3>Talk with our pharmacy team</h3>
             <p>Speak privately with our pharmacy team about your everyday health needs, medicines or concerns.</p>
             <a class="button button-primary wa-link" href="#" data-wa-message="Hello Jopeem Pharmacy, I&apos;d like to ask about a free consultation.">Chat with our team <span>→</span></a>
@@ -151,7 +151,7 @@
 
         <div class="services-catalog-bridge">
           <div><p class="eyebrow">Medicines &amp; health products</p><h3>Looking for a medicine or health product?</h3><p>Explore our medicine range, medical supplies, diagnostics and personal care products, or ask our team to confirm availability.</p></div>
-          <div class="services-catalog-actions"><a class="button button-dark" href="#products">Browse products</a><a class="button button-ghost medicine-enquiry-trigger" href="#">Ask about a medicine</a></div>
+          <div class="services-catalog-actions"><a class="button button-dark" href="#products" data-i18n="actions.browseProducts">Browse products</a><a class="button button-ghost medicine-enquiry-trigger" href="#">Ask about a medicine</a></div>
         </div>
       </div>
     </section>
@@ -260,7 +260,7 @@
     <div class="branch-grid">
       <article class="branch-card primary-branch selected-branch" data-branch-card="nyanama"><span class="branch-label" data-branch-label>Main branch</span><h3>Nyanama Trading Centre</h3><p class="hours">7:00 AM–12 Midnight <small>Mon–Sun</small></p><dl><div><dt>Phone</dt><dd><a href="tel:+256702774852">0702 774 852</a><br><a href="tel:+256766526651">0766 526 651</a></dd></div><div><dt>WhatsApp</dt><dd><a href="https://wa.me/256788570123">0788 570 123</a></dd></div></dl><div class="branch-actions"><a class="button button-primary branch-wa-link" data-branch-wa="nyanama" href="https://wa.me/256788570123">Message this branch</a><a class="branch-directions" href="https://www.google.com/maps/search/?api=1&amp;query=Jopeem+Pharmacy+Nyanama+Trading+Centre" target="_blank" rel="noopener">Get directions ↗</a></div></article>
       <article class="branch-card" data-branch-card="nalumunye"><span class="branch-label" data-branch-label>Branch 02</span><h3>Lebron Shopping Complex, Nalumunye</h3><p class="hours">7:00 AM–10:00 PM <small>Mon–Sun</small></p><dl><div><dt>Phone</dt><dd><a href="tel:+256756744345">0756 744 345</a></dd></div><div><dt>WhatsApp</dt><dd><a href="https://wa.me/256777094870">0777 094 870</a></dd></div></dl><div class="branch-actions"><a class="button button-outline branch-wa-link" data-branch-wa="nalumunye" href="https://wa.me/256777094870">Message this branch</a><a class="branch-directions" href="https://www.google.com/maps/search/?api=1&amp;query=Jopeem+Pharmacy+Lebron+Shopping+Complex+Nalumunye" target="_blank" rel="noopener">Get directions ↗</a></div></article>
-    </div><div class="contact-social-block"><div><p class="eyebrow">Stay connected</p><h3>Follow Jopeem</h3><p>Find Jopeem Pharmacy on Facebook and Instagram.</p></div><div class="contact-social-links"><a href="https://www.facebook.com/profile.php?id=100067541329542" target="_blank" rel="noopener noreferrer" aria-label="Visit Jopeem Pharmacy on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.2 21v-7h2.4l.4-2.8h-2.8V9.4c0-.8.2-1.4 1.4-1.4h1.5V5.5c-.3 0-1.1.1-2.1.1-2.1 0-3.5 1.3-3.5 3.6v2.2H9.2V14h2.3v7h2.7z"/></svg><span>Facebook</span></a><a href="https://www.instagram.com/jopeempharmacy/" target="_blank" rel="noopener noreferrer" aria-label="Visit Jopeem Pharmacy on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.8" r="1"/></svg><span>Instagram</span></a></div></div><div class="contact-bar"><div><small>Email us</small><a href="mailto:info@jopeempharmacy.com">info@jopeempharmacy.com</a></div><div><small>Postal address</small><span>P.O. Box 16229, Kampala, Uganda</span></div></div></div></section>
+    </div><div class="contact-social-block"><div><p class="eyebrow">Stay connected</p><h3 data-i18n="common.follow">Follow Jopeem</h3><p>Find Jopeem Pharmacy on Facebook and Instagram.</p></div><div class="contact-social-links"><a href="https://www.facebook.com/profile.php?id=100067541329542" target="_blank" rel="noopener noreferrer" aria-label="Visit Jopeem Pharmacy on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.2 21v-7h2.4l.4-2.8h-2.8V9.4c0-.8.2-1.4 1.4-1.4h1.5V5.5c-.3 0-1.1.1-2.1.1-2.1 0-3.5 1.3-3.5 3.6v2.2H9.2V14h2.3v7h2.7z"/></svg><span>Facebook</span></a><a href="https://www.instagram.com/jopeempharmacy/" target="_blank" rel="noopener noreferrer" aria-label="Visit Jopeem Pharmacy on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.8" r="1"/></svg><span>Instagram</span></a></div></div><div class="contact-bar"><div><small>Email us</small><a href="mailto:info@jopeempharmacy.com">info@jopeempharmacy.com</a></div><div><small>Postal address</small><span>P.O. Box 16229, Kampala, Uganda</span></div></div></div></section>
 
     <section class="section gallery" data-gallery>
       <div class="wrap">
@@ -333,11 +333,11 @@
         <p class="gallery-locations">Nyanama <span>•</span> Nalumunye</p>
       </div>
     </section>
-    <section class="follow-jopeem"><div class="wrap"><p class="eyebrow">Follow Jopeem</p><h2>Stay connected with Jopeem Pharmacy.</h2><p>Follow us for pharmacy updates and general information.</p><div class="follow-jopeem-links"><a class="button button-white" href="https://www.facebook.com/profile.php?id=100067541329542" target="_blank" rel="noopener noreferrer" aria-label="Visit Jopeem Pharmacy on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.2 21v-7h2.4l.4-2.8h-2.8V9.4c0-.8.2-1.4 1.4-1.4h1.5V5.5c-.3 0-1.1-.1-2.1-.1-2.1 0-3.5 1.3-3.5 3.6v2.2H9.2V14h2.3v7h2.7z"/></svg>Facebook</a><a class="button button-white" href="https://www.instagram.com/jopeempharmacy/" target="_blank" rel="noopener noreferrer" aria-label="Visit Jopeem Pharmacy on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.8" r="1"/></svg>Instagram</a></div></div></section>
+    <section class="follow-jopeem"><div class="wrap"><p class="eyebrow" data-i18n="common.stayConnected">Follow Jopeem</p><h2>Stay connected with Jopeem Pharmacy.</h2><p>Follow us for pharmacy updates and general information.</p><div class="follow-jopeem-links"><a class="button button-white" href="https://www.facebook.com/profile.php?id=100067541329542" target="_blank" rel="noopener noreferrer" aria-label="Visit Jopeem Pharmacy on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.2 21v-7h2.4l.4-2.8h-2.8V9.4c0-.8.2-1.4 1.4-1.4h1.5V5.5c-.3 0-1.1-.1-2.1-.1-2.1 0-3.5 1.3-3.5 3.6v2.2H9.2V14h2.3v7h2.7z"/></svg>Facebook</a><a class="button button-white" href="https://www.instagram.com/jopeempharmacy/" target="_blank" rel="noopener noreferrer" aria-label="Visit Jopeem Pharmacy on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.8" r="1"/></svg>Instagram</a></div></div></section>
     <section class="closing-cta"><div class="wrap"><div><p class="eyebrow light">Here when you need us</p><h2>Need help finding a medicine or service?</h2><p>Speak with our pharmacy team at <span data-closing-branch>Nyanama Trading Centre</span>, open daily from <span data-closing-hours>7:00 AM–12 Midnight</span>.</p></div><a class="button button-primary wa-link" href="#" data-wa-compose data-wa-context="help">Chat on WhatsApp <span>↗</span></a></div></section>
   </main>
 
-  <footer><div class="wrap footer-grid"><div><a class="brand footer-brand" href="#top"><span class="brand-mark"><img src="assets/Favicon/favicon.svg" alt="" width="44" height="44"></span><span><b>JOPEEM</b><small>Pharmacy & Health Care</small></span></a><p>Adding years of Health to your life.</p></div><div><b>Explore</b><a href="#services">Services</a><a href="#products">Products</a><a href="#about">About</a><a href="#contact">Contact</a><a href="dashboard.html" aria-label="Open admin dashboard">Admin</a></div><div><b>Follow us</b><div class="socials"><a class="social-link" href="https://www.facebook.com/profile.php?id=100067541329542" target="_blank" rel="noopener noreferrer" aria-label="Visit Jopeem Pharmacy on Facebook" title="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.2 21v-7h2.4l.4-2.8h-2.8V9.4c0-.8.2-1.4 1.4-1.4h1.5V5.5c-.3 0-1.1-.1-2.1-.1-2.1 0-3.5 1.3-3.5 3.6v2.2H9.2V14h2.3v7h2.7z"/></svg><span class="sr-only">Facebook</span></a><a class="social-link" href="https://www.instagram.com/jopeempharmacy/" target="_blank" rel="noopener noreferrer" aria-label="Visit Jopeem Pharmacy on Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.8" r="1"/></svg><span class="sr-only">Instagram</span></a><a class="wa-link" href="#" aria-label="WhatsApp">w</a></div></div></div><div class="wrap copyright"><span>© 2026 Jopeem Pharmacy and Health Care Centre Ltd.</span><button class="text-button preferences-footer-link" type="button" id="open-preferences-footer">Personalization settings</button><a class="site-credit" href="https://solomantalgo.com" target="_blank" rel="noopener">Site by SolomanTalgo Web Design</a></div></footer>
+  <footer><div class="wrap footer-grid"><div><a class="brand footer-brand" href="#top"><span class="brand-mark"><img src="assets/Favicon/favicon.svg" alt="" width="44" height="44"></span><span><b>JOPEEM</b><small>Pharmacy & Health Care</small></span></a><p>Adding years of Health to your life.</p></div><div><b>Explore</b><a href="#services" data-i18n="nav.services" data-i18n="nav.services">Services</a><a href="#products" data-i18n="nav.products">Products</a><a href="#about" data-i18n="nav.about">About</a><a href="#contact" data-i18n="nav.contact">Contact</a><a href="dashboard.html" aria-label="Open admin dashboard">Admin</a></div><div><b data-i18n="common.follow">Follow us</b><div class="socials"><a class="social-link" href="https://www.facebook.com/profile.php?id=100067541329542" target="_blank" rel="noopener noreferrer" aria-label="Visit Jopeem Pharmacy on Facebook" title="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.2 21v-7h2.4l.4-2.8h-2.8V9.4c0-.8.2-1.4 1.4-1.4h1.5V5.5c-.3 0-1.1-.1-2.1-.1-2.1 0-3.5 1.3-3.5 3.6v2.2H9.2V14h2.3v7h2.7z"/></svg><span class="sr-only">Facebook</span></a><a class="social-link" href="https://www.instagram.com/jopeempharmacy/" target="_blank" rel="noopener noreferrer" aria-label="Visit Jopeem Pharmacy on Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.8" r="1"/></svg><span class="sr-only">Instagram</span></a><a class="wa-link" href="#" aria-label="WhatsApp">w</a></div></div></div><div class="wrap copyright"><span>© 2026 Jopeem Pharmacy and Health Care Centre Ltd.</span><button class="text-button preferences-footer-link" type="button" id="open-preferences-footer">Personalization settings</button><a class="site-credit" href="https://solomantalgo.com" target="_blank" rel="noopener">Site by SolomanTalgo Web Design</a></div></footer>
 
   <div class="feedback-launcher">
     <button class="feedback-fab" type="button" id="open-feedback" aria-haspopup="dialog" aria-controls="feedback-dialog">
@@ -382,11 +382,11 @@
     <button class="dialog-close" type="button" data-close-dialog aria-label="Close feedback form"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12"></path><path d="M18 6 6 18"></path></svg></button>
     <div class="feedback-head">
       <span class="feedback-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5.5h14v10H10l-5 3v-13Z"></path><path d="M8 9.5h8M8 12.5h5"></path></svg></span>
-      <div><p class="eyebrow">Help us improve</p><h2 id="feedback-title">Share your feedback</h2><p>Your thoughts help us make Jopeem better.</p></div>
+      <div><p class="eyebrow">Help us improve</p><h2 id="feedback-title" data-i18n="common.feedback">Share your feedback</h2><p>Your thoughts help us make Jopeem better.</p></div>
     </div>
     <form id="feedback-form" novalidate>
       <fieldset class="feedback-rating-field">
-        <legend>How would you rate your experience? <span aria-hidden="true">*</span></legend>
+        <legend data-i18n="common.rating">How would you rate your experience? <span aria-hidden="true">*</span></legend>
         <div class="feedback-stars" role="group" aria-label="Rating from 1 to 5 stars">
           <button type="button" class="feedback-star" data-feedback-rating="1" aria-label="1 star" aria-pressed="false">★</button>
           <button type="button" class="feedback-star" data-feedback-rating="2" aria-label="2 stars" aria-pressed="false">★</button>
@@ -397,7 +397,7 @@
         <input type="hidden" name="rating" id="feedback-rating" value="">
         <small class="feedback-field-error" id="feedback-rating-error" hidden>Please choose a rating.</small>
       </fieldset>
-      <label class="feedback-label">Feedback type <span aria-hidden="true">*</span>
+      <label class="feedback-label" data-i18n="common.feedbackType">Feedback type <span aria-hidden="true">*</span>
         <select name="feedbackType" id="feedback-type" required>
           <option value="">Choose a topic</option>
           <option>Website experience</option>
@@ -408,13 +408,13 @@
         </select>
       </label>
       <div class="feedback-branch-display"><span>Branch</span><strong id="feedback-branch">Nyanama Trading Centre</strong></div>
-      <label class="feedback-label">Comment <span class="feedback-optional">(optional)</span>
+      <label class="feedback-label" data-i18n="common.comment">Comment <span class="feedback-optional">(optional)</span>
         <textarea name="comment" id="feedback-comment" maxlength="500" rows="4" placeholder="Tell us more about your experience..."></textarea>
         <small class="feedback-count"><span id="feedback-count">0</span>/500</small>
       </label>
       <p class="feedback-privacy">Please don't include private medical information.</p>
       <p class="feedback-status" id="feedback-status" role="status" aria-live="polite" hidden></p>
-      <button class="button button-primary feedback-submit" type="submit" id="feedback-submit">Submit feedback</button>
+      <button class="button button-primary feedback-submit" type="submit" id="feedback-submit" data-i18n="actions.submit">Submit feedback</button>
     </form>
   </dialog>
 
