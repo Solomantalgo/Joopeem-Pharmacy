@@ -385,4 +385,6 @@ a:focus-visible,button:focus-visible{outline:3px solid rgba(76,170,76,.3);outlin
 @media(min-width:901px) and (max-width:1150px){.site-header nav{gap:20px;font-size:12px}.site-header{padding-inline:20px}}
 
 
-.composer-step-actions,.composer-review-actions{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px}.composer-step-actions .button,.composer-review-actions .button{min-height:38px;padding:9px 14px;font-size:11px}
+
+
+.assistant-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:2px}.assistant-nav .composer-submit{width:auto;margin-top:0}.assistant-nav .composer-next{margin-top:0}.assistant-nav .button{min-height:40px;padding:9px 15px;font-size:11px}
