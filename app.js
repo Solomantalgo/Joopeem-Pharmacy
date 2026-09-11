@@ -347,7 +347,7 @@ document.addEventListener('click',e=>{
   if(e.target.closest("#disable-preferences")){disablePreferences()}
   if(e.target.closest("#clear-preferences")){clearPreferences()}
   const openBranch=e.target.closest("[data-open-branch]");if(openBranch){const dialog=document.querySelector("#branch-dialog");applyBranch(state.branch);if(!dialog.open)dialog.showModal()}
-  const composerTrigger=e.target.closest("[data-wa-compose]");if(composerTrigger){e.preventDefault();openWhatsAppComposer(composerTrigger.dataset.waContext||"general")}
+  const composerTrigger=e.target.closest("[data-wa-compose]");if(composerTrigger){e.preventDefault();openWhatsAppComposer(composerTrigger.dataset.waContext||"general",composerTrigger.dataset.waService||"")}
 });
 $$(".catalog-category-card").forEach(b=>b.onclick=()=>{$$(".catalog-category-card").forEach(x=>{x.classList.remove("active");x.setAttribute("aria-selected","false")});b.classList.add("active");b.setAttribute("aria-selected","true");state.category=b.dataset.category;state.subgroup="all";recordCategoryInterest(state.category);state.search="";state.limit=18;$("#product-search").value="";renderCatalog();const results=$("#catalog-results"),reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;requestAnimationFrame(()=>results.scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"start"}))});
 if($('#product-search'))$('#product-search').oninput=e=>{state.search=e.target.value;state.limit=18;renderCatalog()};
@@ -363,17 +363,20 @@ if(!preferences.preferredBranch)setTimeout(()=>document.querySelector("#branch-d
 setTimeout(maybeShowPreferenceDialog,preferences.preferredBranch?1100:1500);
 
 const whatsappComposer=document.querySelector("#whatsapp-composer"),whatsappComposerForm=document.querySelector("#whatsapp-composer-form");
-const composerMessages={general:"Hello Jopeem Pharmacy, I would like some assistance.",help:"Hello Jopeem Pharmacy, I need help finding a medicine or choosing the appropriate pharmacy service."};
+const composerState={type:"",service:"",branchQuestion:false},NL=String.fromCharCode(10);
+function composerText(){const branch=whatsappComposerForm.elements.branch.value||state.branch,type=composerState.type,medicine=String(whatsappComposerForm.elements.medicine.value||"").trim(),product=String(whatsappComposerForm.elements.product.value||"").trim(),other=String(whatsappComposerForm.elements.other.value||"").trim();if(type==="medicine")return medicine?"Hello Jopeem Pharmacy, I would like to check whether "+medicine+" is available at "+branch+"."+NL+NL+"Please confirm availability.":"Select Find a medicine and enter the medicine name.";if(type==="service")return composerState.service?"Hello Jopeem Pharmacy, I would like to ask about "+composerState.service+" at "+branch+"."+NL+NL+"Please let me know about availability and any requirements.":"Select a health service to continue.";if(type==="product")return product?"Hello Jopeem Pharmacy, I would like to check availability of "+product+" at "+branch+"."+NL+NL+"Please confirm whether it is currently available.":"Enter the product or item name to continue.";if(type==="branch"&&composerState.branchQuestion)return "Hello Jopeem Pharmacy, I would like information about your "+branch+" branch, including opening hours and contact details.";if(type==="other")return other?"Hello Jopeem Pharmacy, I would like some help with the following:"+NL+NL+other:"Tell us briefly how we can help.";return "Hello Jopeem Pharmacy, I would like some assistance."}
 function updateComposerPreview(){const message=whatsappComposerForm.elements.message.value;document.querySelector("[data-message-preview]").textContent=message;document.querySelector("[data-message-count]").textContent=message.length}
-function openWhatsAppComposer(context){
-  const openDialog=document.querySelector("dialog[open]");if(openDialog)openDialog.close();
-  closeCart();whatsappComposerForm.elements.branch.value=state.branch;whatsappComposerForm.elements.message.value=composerMessages[context]||composerMessages.general;updateComposerPreview();whatsappComposer.showModal();
-}
+function setComposerError(message){let error=whatsappComposerForm.querySelector("[data-composer-error]");if(!error){error=document.createElement("p");error.className="composer-error";error.dataset.composerError="";whatsappComposerForm.insertBefore(error,whatsappComposerForm.querySelector(".composer-submit"))}error.textContent=message||"";error.hidden=!message}
+function setComposerType(type){composerState.type=type;composerState.service="";composerState.branchQuestion=false;whatsappComposerForm.reset();whatsappComposerForm.elements.branch.value=state.branch;whatsappComposerForm.querySelectorAll("[data-help-type]").forEach(button=>{const selected=button.dataset.helpType===type;button.classList.toggle("selected",selected);button.setAttribute("aria-pressed",String(selected))});const details=whatsappComposerForm.querySelector(".composer-details");if(details)details.hidden=!type;whatsappComposerForm.querySelectorAll("[data-detail]").forEach(field=>{field.hidden=field.dataset.detail!==type});whatsappComposerForm.querySelectorAll("[data-service]").forEach(button=>{button.classList.remove("selected");button.setAttribute("aria-pressed","false")});setComposerError("");whatsappComposerForm.elements.message.value=composerText();updateComposerPreview();if(type==="medicine")whatsappComposerForm.elements.medicine.focus();if(type==="product")whatsappComposerForm.elements.product.focus();if(type==="other")whatsappComposerForm.elements.other.focus()}
+function openWhatsAppComposer(context,detail){const openDialog=document.querySelector("dialog[open]");if(openDialog)openDialog.close();closeCart();setComposerType(context==="medicine"?"medicine":context==="service"?"service":context==="product"?"product":context==="branch"?"branch":context==="other"?"other":"");if(detail&&context==="product")whatsappComposerForm.elements.product.value=detail;if(detail&&context==="service"){const button=[...whatsappComposerForm.querySelectorAll("[data-service]")].find(item=>item.dataset.service===detail);if(button){composerState.service=detail;button.classList.add("selected");button.setAttribute("aria-pressed","true")}}whatsappComposerForm.elements.branch.value=state.branch;const directions=whatsappComposerForm.querySelector("[data-composer-directions]");if(directions)directions.href=branchDirectionsUrl(BRANCHES[state.branch]);whatsappComposerForm.elements.message.value=composerText();updateComposerPreview();whatsappComposer.showModal()}
+whatsappComposerForm.querySelectorAll("[data-help-type]").forEach(button=>button.addEventListener("click",()=>setComposerType(button.dataset.helpType)));
+whatsappComposerForm.querySelectorAll("[data-service]").forEach(button=>button.addEventListener("click",()=>{composerState.service=button.dataset.service;whatsappComposerForm.querySelectorAll("[data-service]").forEach(item=>{const selected=item===button;item.classList.toggle("selected",selected);item.setAttribute("aria-pressed",String(selected))});whatsappComposerForm.elements.message.value=composerText();updateComposerPreview()}));
+whatsappComposerForm.querySelectorAll("input,textarea,select").forEach(field=>field.addEventListener("input",()=>{if(field.name==="branch"||field.name==="message")return;whatsappComposerForm.elements.message.value=composerText();updateComposerPreview();setComposerError("")}));
+whatsappComposerForm.elements.branch.addEventListener("change",event=>{applyBranch(event.target.value,true);whatsappComposerForm.elements.message.value=composerText();const directions=whatsappComposerForm.querySelector("[data-composer-directions]");if(directions)directions.href=branchDirectionsUrl(BRANCHES[event.target.value]);updateComposerPreview()});
+whatsappComposerForm.querySelector("[data-branch-question]").addEventListener("click",()=>{composerState.branchQuestion=true;whatsappComposerForm.elements.message.value=composerText();updateComposerPreview()});
+whatsappComposerForm.querySelector("[data-composer-directions]").addEventListener("click",event=>{const branch=BRANCHES[whatsappComposerForm.elements.branch.value];if(branch)event.currentTarget.href=branchDirectionsUrl(branch)});
 whatsappComposerForm.elements.message.addEventListener("input",updateComposerPreview);
-whatsappComposerForm.elements.branch.addEventListener("change",event=>applyBranch(event.target.value,true));
-whatsappComposerForm.addEventListener("submit",event=>{event.preventDefault();const message=whatsappComposerForm.elements.message.value.trim();if(!message)return;whatsappComposer.close();window.open(wa(message),"_blank","noopener")});
-
-const contactFab=$(".contact-fab"),contactMenu=$("#contact-menu"),contactBackdrop=$(".contact-panel-backdrop");
+whatsappComposerForm.addEventListener("submit",event=>{event.preventDefault();const type=composerState.type,valid=(type==="medicine"&&whatsappComposerForm.elements.medicine.value.trim())||(type==="service"&&composerState.service)||(type==="product"&&whatsappComposerForm.elements.product.value.trim())||(type==="branch"&&composerState.branchQuestion)||(type==="other"&&whatsappComposerForm.elements.other.value.trim());if(!valid){setComposerError(type==="service"?"Please choose a health service.":type==="medicine"?"Please enter a medicine name.":type==="product"?"Please enter a product or item name.":type==="other"?"Please tell us briefly how we can help.":"Please choose how we can help.");return}const message=whatsappComposerForm.elements.message.value.trim();if(!message)return;whatsappComposer.close();window.open(wa(message),"_blank","noopener")});const contactFab=$(".contact-fab"),contactMenu=$("#contact-menu"),contactBackdrop=$(".contact-panel-backdrop");
 if(contactFab&&contactMenu){
   const contactClose=$(".contact-menu-close",contactMenu);
   const setContactMenu=(open,restoreFocus=true)=>{
@@ -418,12 +421,7 @@ if(galleryPreview&&"IntersectionObserver" in window&&!window.matchMedia("(prefer
 
 const medicineDialog=$("#medicine-dialog"),medicineForm=$("#medicine-enquiry-form");
 if(medicineDialog&&medicineForm){
-  $$(".medicine-enquiry-trigger").forEach(trigger=>trigger.addEventListener("click",event=>{
-    event.preventDefault();
-    medicineForm.reset();
-    medicineForm.elements.branch.value=state.branch;
-    medicineDialog.showModal();
-  }));
+  document.querySelectorAll(".medicine-enquiry-trigger").forEach(trigger=>trigger.addEventListener("click",event=>{event.preventDefault();openWhatsAppComposer("medicine")}));
   medicineForm.addEventListener("submit",event=>{
     event.preventDefault();
     const details=new FormData(medicineForm);
@@ -440,22 +438,7 @@ if(medicineDialog&&medicineForm){
 
 const productEnquiryDialog=document.querySelector("#product-enquiry-dialog"),productEnquiryForm=document.querySelector("#product-enquiry-form");
 if(productEnquiryDialog&&productEnquiryForm){
-  document.querySelectorAll(".product-enquiry-trigger").forEach(trigger=>trigger.addEventListener("click",()=>{
-    productEnquiryForm.reset();
-    productEnquiryForm.elements.branch.value=state.branch;
-    productEnquiryDialog.showModal();
-  }));
-  productEnquiryForm.addEventListener("submit",event=>{
-    event.preventDefault();
-    const details=new FormData(productEnquiryForm);
-    const product=String(details.get("product")||"").trim();
-    const productDetails=String(details.get("details")||"").trim();
-    const branch=String(details.get("branch"));
-    const number=branch==="Lebron Shopping Complex, Nalumunye"?"256777094870":"256788570123";
-    const message=`Hello Jopeem Pharmacy, I would like to check product availability.\n\nProduct: ${product}\nSize, brand or details: ${productDetails||"Not specified"}\nPreferred branch: ${branch}\n\nPlease confirm availability and pricing.`;
-    productEnquiryDialog.close();
-    window.open(`https://wa.me/${number}?text=${encodeURIComponent(message)}`,"_blank","noopener");
-  });
+  document.querySelectorAll(".product-enquiry-trigger").forEach(trigger=>trigger.addEventListener("click",event=>{event.preventDefault();openWhatsAppComposer("product",trigger.dataset.productName||"")}));
 }
 
 

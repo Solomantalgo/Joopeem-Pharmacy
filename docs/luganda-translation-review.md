@@ -20,3 +20,13 @@ Initial Luganda copy is a controlled local draft and requires review by William/
 | Payment, transaction and legally significant wording | English retained where not explicitly approved | Checkout/payment safety | Needs human review |
 
 Product names, branch names, internal IDs, URL parameters, cart values, feedback enum values and medical content are intentionally not machine-translated.
+
+## Jopeem Assistant strings
+
+| English | Proposed Luganda | Context | Status |
+|---|---|---|---|
+| How can we help? | Tuyinza tutya okukuyamba? | WhatsApp assistant heading | Needs client review |
+| Ask about a health service | Buuza ku buweereza bw’ebyobulamu | Assistant help type | Needs client review |
+| Branch & directions | Ettabi n’amakubo | Assistant help type | Needs client review |
+| For medical advice, treatment decisions or urgent health concerns... | Luganda draft retained in translation data | Safety note | Needs client/native-speaker review |
+| Service names and generated enquiry templates | English retained | Medical/service messaging | Needs approved translation |
