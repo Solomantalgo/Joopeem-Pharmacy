@@ -81,16 +81,16 @@ To champion community wellness as a trusted pro-life pharmacy. We achieve this b
 
 ## Product Catalog
 
-Source: client's Tally stock export, 7,291 total SKUs across 5 categories.
+Source: client's Tally stock export (7,291 SKUs), plus 10 photographed product additions.
 
 | Category | Item count |
 |---|---|
 | MEDICINE | 6,817 |
-| SUNDRIES | 220 |
-| COSMETICS | 168 |
+| SUNDRIES | 229 |
+| COSMETICS | 169 |
 | DIAGNOSTICS | 46 |
 | MEDICAL DEVICES | 40 |
-| **Total** | **7,291** |
+| **Total** | **7,301** |
 
 ### Medicine (6,817 items) — display handling note
 
@@ -122,10 +122,10 @@ Site should represent this category as a summary/stat ("6,800+ medicines in stoc
 
 ---
 
-### Cosmetics (168 items)
+### Cosmetics (169 items)
 
 
-#### Skincare (Face & Body) (66)
+#### Skincare (Face & Body) (67)
 
 - AICHUN COLLAGEN /VIT E SERUM ALOEVERA
 - AICHUN COLLAGEN/VIT C SERUM CARROT
@@ -150,6 +150,7 @@ Site should represent this category as a summary/stat ("6,800+ medicines in stoc
 - Bobana Sunscreen Lotion SPF 50+150ml
 - Bobona Sunscreen Gel SPF50+150ml
 - Clabane Eczema Care Moisturising Cream
+- Contractubex Scar Treatment Gel, 20g
 - Clabane Kale + Vitamin B Serum, 30ml
 - Clabane Protect & Refine Moisturizer
 - Clabane Protect & Renew Face Moisturiser, 50ml
@@ -325,10 +326,10 @@ Site should represent this category as a summary/stat ("6,800+ medicines in stoc
 
 ---
 
-### Sundries (220 items)
+### Sundries (229 items)
 
 
-#### General Health & Miscellaneous (65)
+#### General Health & Miscellaneous (74)
 
 - Always Dreamzz
 - Always Maxi Extra Long 16s
@@ -341,6 +342,7 @@ Site should represent this category as a summary/stat ("6,800+ medicines in stoc
 - Azithro Denk 500mg
 - BACTIGRAS 100MMX100MM PCS
 - BACTIGRASS GAUSE 100MMX400M
+- BioMan Food Supplement, 60 Tablets
 - CEFOTAXIME INJ 2G
 - CEFOTAXIME INJECTION 2GM
 - Clabane Baby Sensitive Cream
@@ -351,6 +353,8 @@ Site should represent this category as a summary/stat ("6,800+ medicines in stoc
 - Disposable Panties
 - Eco Check Ovulation Test Kits
 - ENSURE POWDER 57/7 SACHETS
+- France Lait 1 Infant Formula, 0–6 Months, 900g
+- France Lait 2 Follow-on Formula, 6–12 Months, 400g
 - ETHEREAL HANDSANITZER 60ML
 - Fansidar
 - Fast 125mg Supp,10s
@@ -367,6 +371,7 @@ Site should represent this category as a summary/stat ("6,800+ medicines in stoc
 - Horny Goat Weed Caps, 60s
 - HYFRESH GEL 0.3%
 - Imun Pila
+- Vitabiotics Jointace Omega-3, 30 Capsules
 - JOHN SOAP  OIL 100MG
 - Johnson Baby Oil 125ml
 - Johnson Baby Soap Blue 175g
@@ -388,11 +393,16 @@ Site should represent this category as a summary/stat ("6,800+ medicines in stoc
 - Pressure Check Blood Pressure Monitor
 - PROBIOTIC SPRAY GRAPE
 - Saraya 60ml
+- Sugar Free Gold Low-Calorie Sweetener
 - Savlon Antiseptic 125ml
 - Suga Check Blood Glucose Strips
 - Sugar Check Glucometer
 - Tetrabenazine 25mg Tabs
 - Thiomist Inhaler
+- WelTek Joint Collagen Peptides, 10 Sachets × 12g
+- WelTek Keto Ketogenic Powder, 300g
+- Orthoboost with Hyaluronic Acid, 30 Sachets × 5g
+- Biotica Megacal Fizzy Forte, 1000mg Calcium, 20 Tablets, Lemon-Lime
 - Vaseline Lip Therapy Original(Blue)
 - Xtreme Massage Oil
 

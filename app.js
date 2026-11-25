@@ -276,15 +276,29 @@ function parseCatalog(md){
   ['Cosmetics','Sundries','Diagnostics','Medical Devices'].forEach((cat,i,all)=>{
     const start=md.indexOf(`### ${cat} (`), end=i<all.length-1?md.indexOf(`### ${all[i+1]} (`,start):md.length;
     const block=md.slice(start,end), groups={}; let group='All';
-    block.split('\n').forEach(line=>{const h=line.match(/^#### (.+?) \(\d+\)$/);if(h){group=h[1];groups[group]=[]}else if(line.startsWith('- ')&&groups[group])groups[group].push(line.slice(2).trim())});
+    block.split(/\r?\n/).forEach(line=>{const h=line.match(/^#### (.+?) \(\d+\)$/);if(h){group=h[1];groups[group]=[]}else if(line.startsWith('- ')&&groups[group])groups[group].push(line.slice(2).trim())});
     state.catalog[cat]=groups;
   });
 }
 async function loadCatalog(){try{const md=await fetch('assets/source-data.md').then(r=>{if(!r.ok)throw Error();return r.text()});parseCatalog(md);if($('#product-grid'))renderCatalog()}catch(e){if($('#product-grid'))$('#product-grid').innerHTML='<p class="loading">Catalog preview needs a local web server. Please contact us on WhatsApp for availability.</p>'}}
+// Exact package matches for photographed additions; filenames are archived and served from plan/products/.
+const verifiedProductImages={
+  "BioMan Food Supplement, 60 Tablets":"plan/products/1000360390.jpg.jpeg",
+  "France Lait 1 Infant Formula, 0–6 Months, 900g":"plan/products/1000360394.jpg.jpeg",
+  "France Lait 2 Follow-on Formula, 6–12 Months, 400g":"plan/products/1000360395.jpg.jpeg",
+  "WelTek Keto Ketogenic Powder, 300g":"plan/products/1000360397.jpg.jpeg",
+  "WelTek Joint Collagen Peptides, 10 Sachets × 12g":"plan/products/1000360399.jpg.jpeg",
+  "Orthoboost with Hyaluronic Acid, 30 Sachets × 5g":"plan/products/1000360402.jpg.jpeg",
+  "Biotica Megacal Fizzy Forte, 1000mg Calcium, 20 Tablets, Lemon-Lime":"plan/products/1000360404.jpg.jpeg",
+  "Vitabiotics Jointace Omega-3, 30 Capsules":"plan/products/1000360406.jpg.jpeg",
+  "Contractubex Scar Treatment Gel, 20g":"plan/products/1000360410.jpg.jpeg",
+  "Sugar Free Gold Low-Calorie Sweetener":"plan/products/1000360414.jpg.jpeg"
+};
 function categoryItems(){
   return Object.entries(state.catalog[state.category]||{}).flatMap(([group,items])=>items.map(item=>{
     const product=typeof item==="string"?{name:item}:item||{};
-    return {name:String(product.name||""),group,category:state.category,image:String(product.image||product.imageUrl||"").trim()};
+    const name=String(product.name||"");
+    return {name,group,category:state.category,image:String(product.image||product.imageUrl||verifiedProductImages[name]||"").trim()};
   })).filter(x=>(state.subgroup==="all"||x.group===state.subgroup)&&x.name.toLowerCase().includes(state.search.toLowerCase()));
 }
 function displayCategory(cat){return cat==="Sundries"?"Health Essentials":cat}
@@ -317,7 +331,8 @@ function renderCatalog(){
   filter.value=state.subgroup;
   $("#subgroup-chips").innerHTML=[{value:"all",label:"All"},...groups.map(g=>({value:g,label:displayGroup(g)}))].map(x=>`<button type="button" data-subgroup="${encodeURIComponent(x.value)}" aria-pressed="${state.subgroup===x.value}">${escapeHtml(x.label)}</button>`).join("");
   $("#selected-category-title").textContent=displayCategory(state.category);
-  const items=categoryItems(),shown=Math.min(state.limit,items.length);
+  // categoryItems applies the current category, subgroup, and search first. Stable index tiebreaking keeps source order within each image/no-image group.
+  const items=categoryItems().map((item,index)=>({item,index})).sort((a,b)=>Number(Boolean(b.item.image))-Number(Boolean(a.item.image))||a.index-b.index).map(entry=>entry.item),shown=Math.min(state.limit,items.length);
   $("#result-count").textContent=items.length?`Showing ${shown} of ${items.length} products`:"No matching products";
   const grid=$("#product-grid");
   grid.innerHTML=items.length?items.slice(0,state.limit).map(x=>`<article class="product-card ${categoryCardClass(x.category)}">${productVisual(x)}<h3 title="${escapeHtml(x.name)}">${escapeHtml(x.name)}</h3><small class="product-subgroup">${escapeHtml(displayGroup(x.group))}</small><button data-add="${encodeURIComponent(x.name)}" data-group="${encodeURIComponent(x.category)}">Add Product</button></article>`).join(""):`<div class="catalog-empty"><b>No matching products found.</b><p>Try another search or ask our pharmacy team to help confirm availability.</p><a class="button button-outline wa-link" href="#">Ask our pharmacy team</a></div>`;
@@ -413,6 +428,23 @@ if(galleryPreview&&"IntersectionObserver" in window&&!window.matchMedia("(prefer
     if(entries[0].isIntersecting){galleryPreview.classList.add("gallery-visible");galleryObserver.disconnect()}
   },{threshold:.18,rootMargin:"0px 0px -8% 0px"});
   galleryObserver.observe(galleryPreview);
+}
+
+const consultationVideo=document.querySelector(".consultation-video");
+if(consultationVideo){
+  const media=consultationVideo.closest(".service-feature-media");
+  const reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)");
+  consultationVideo.muted=true;
+  consultationVideo.defaultMuted=true;
+  consultationVideo.playsInline=true;
+  const useStill=()=>{media?.classList.add("video-fallback");consultationVideo.pause()};
+  const tryAutoplay=()=>{
+    if(reducedMotion.matches){useStill();return}
+    consultationVideo.play().then(()=>media?.classList.remove("video-fallback")).catch(useStill);
+  };
+  tryAutoplay();
+  reducedMotion.addEventListener?.("change",tryAutoplay);
+  consultationVideo.addEventListener("error",useStill);
 }
 
 const medicineDialog=$("#medicine-dialog"),medicineForm=$("#medicine-enquiry-form");
