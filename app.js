@@ -292,7 +292,22 @@ const verifiedProductImages={
   "Biotica Megacal Fizzy Forte, 1000mg Calcium, 20 Tablets, Lemon-Lime":"plan/products/1000360404.jpg.jpeg",
   "Vitabiotics Jointace Omega-3, 30 Capsules":"plan/products/1000360406.jpg.jpeg",
   "Contractubex Scar Treatment Gel, 20g":"plan/products/1000360410.jpg.jpeg",
-  "Sugar Free Gold Low-Calorie Sweetener":"plan/products/1000360414.jpg.jpeg"
+  "Sugar Free Gold Low-Calorie Sweetener":"plan/products/1000360414.jpg.jpeg",
+  "Vitabiotics Neurozan, 30 Advanced Tablets":"plan/products/IMG-20261126-WA0753.jpg.jpeg",
+  "Valupak Omega-3 Fish Oil (18:12), 30 Capsules":"plan/products/IMG-20261126-WA0784.jpg.jpeg",
+  "Zandros Fish Oil 1200mg with Vitamin E, 20 Soft Gelatin Capsules":"plan/products/IMG-20261126-WA1808.jpg.jpeg",
+  "Vitabiotics Neuromind Original, 30 Tablets":"plan/products/IMG-20261126-WA3721.jpg.jpeg",
+  "Vitabiotics Visionace Original with Bilberry":"plan/products/IMG-20261126-WA4238.jpg.jpeg",
+  "Good Omega Fish Oil 1000mg, 10 Softgel Capsules":"plan/products/IMG-20261126-WA4551.jpg.jpeg",
+  "NeoCell Grassfed Collagen Peptides with Vitamin C & Biotin, 180 Tablets":"plan/products/IMG-20261126-WA5025.jpg.jpeg",
+  "Doctor's Choice Replenish+ Plant-Based, 30 Veggie Capsules":"plan/products/IMG-20261126-WA5105.jpg.jpeg",
+  "Five Oceans Ultimate Omega Plus Multivitamins, 30 Softgels":"plan/products/IMG-20261126-WA6294.jpg.jpeg",
+  "Denk Brain Active, 30":"plan/products/IMG-20261126-WA7153.jpg.jpeg",
+  "WelTek Omega 3 Fatty Acids, 30 Softgels":"plan/products/IMG-20261126-WA7308.jpg.jpeg",
+  "Vitabiotics Ultra Omega 3-6-9 3-in-1 Formula":"plan/products/IMG-20261126-WA7398.jpg.jpeg",
+  "Seven Seas Cod Liver Oil, 60 Capsules":"plan/products/IMG-20261126-WA8432.jpg.jpeg",
+  "Hovid Omega-3 1000mg, 60 Softgels":"plan/products/IMG-20261126-WA8821.jpg.jpeg",
+  "NeoCell Super Collagen+C Type 1 & 3, 250 Tablets":"plan/products/IMG-20261126-WA9441.jpg.jpeg"
 };
 function categoryItems(){
   return Object.entries(state.catalog[state.category]||{}).flatMap(([group,items])=>items.map(item=>{

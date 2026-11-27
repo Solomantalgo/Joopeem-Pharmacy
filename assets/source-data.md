@@ -81,16 +81,16 @@ To champion community wellness as a trusted pro-life pharmacy. We achieve this b
 
 ## Product Catalog
 
-Source: client's Tally stock export (7,291 SKUs), plus 10 photographed product additions.
+Source: client's Tally stock export (7,291 SKUs), plus 25 photographed product additions.
 
 | Category | Item count |
 |---|---|
 | MEDICINE | 6,817 |
-| SUNDRIES | 229 |
+| SUNDRIES | 244 |
 | COSMETICS | 169 |
 | DIAGNOSTICS | 46 |
 | MEDICAL DEVICES | 40 |
-| **Total** | **7,301** |
+| **Total** | **7,316** |
 
 ### Medicine (6,817 items) — display handling note
 
@@ -326,10 +326,10 @@ Site should represent this category as a summary/stat ("6,800+ medicines in stoc
 
 ---
 
-### Sundries (229 items)
+### Sundries (244 items)
 
 
-#### General Health & Miscellaneous (74)
+#### General Health & Miscellaneous (89)
 
 - Always Dreamzz
 - Always Maxi Extra Long 16s
@@ -405,6 +405,21 @@ Site should represent this category as a summary/stat ("6,800+ medicines in stoc
 - Biotica Megacal Fizzy Forte, 1000mg Calcium, 20 Tablets, Lemon-Lime
 - Vaseline Lip Therapy Original(Blue)
 - Xtreme Massage Oil
+- Vitabiotics Neurozan, 30 Advanced Tablets
+- Valupak Omega-3 Fish Oil (18:12), 30 Capsules
+- Zandros Fish Oil 1200mg with Vitamin E, 20 Soft Gelatin Capsules
+- Vitabiotics Neuromind Original, 30 Tablets
+- Vitabiotics Visionace Original with Bilberry
+- Good Omega Fish Oil 1000mg, 10 Softgel Capsules
+- NeoCell Grassfed Collagen Peptides with Vitamin C & Biotin, 180 Tablets
+- Doctor's Choice Replenish+ Plant-Based, 30 Veggie Capsules
+- Five Oceans Ultimate Omega Plus Multivitamins, 30 Softgels
+- Denk Brain Active, 30
+- WelTek Omega 3 Fatty Acids, 30 Softgels
+- Vitabiotics Ultra Omega 3-6-9 3-in-1 Formula
+- Seven Seas Cod Liver Oil, 60 Capsules
+- Hovid Omega-3 1000mg, 60 Softgels
+- NeoCell Super Collagen+C Type 1 & 3, 250 Tablets
 
 #### Wound Care & Dressings (28)
 

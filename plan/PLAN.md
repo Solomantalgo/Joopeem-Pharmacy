@@ -8,7 +8,7 @@ All image working copies are in `plan/gallery/`; the approved entrance edit is i
 
 ## User-approved service visuals
 
-- **Talk with our pharmacy team:** video is implemented from `plan/gallery/talk-with-our-team.mp4`, muted, looping, inline, with controls and a poster/fallback. The source video remains unchanged.
+- **Talk with our pharmacy team:** video is implemented from `plan/gallery/talk-with-our-team.mp4`, muted, looping, inline, without visible controls, and with a poster/fallback. The source video remains unchanged.
 - **Medicine Advice & Counselling:** use `plan/gallery/gallery-pharmacist-customer-care-original.jpg`.
 - These images contain people. Do not retouch, crop the source files, or regenerate them. CSS may control the presentation. The current desktop cards make images too tall/stretchy: use a deliberate fixed/clamped media aspect ratio or height and `object-fit: cover`, with tuned `object-position` so all relevant faces remain visible. Keep card proportions compact and similar to the earlier service card treatment. Verify desktop and mobile crops.
 - Keep the video silent; provide accessible controls only if needed, and respect reduced-motion preferences. Prefer muted autoplay only if the browser allows it; otherwise show the poster and a clear play control.
@@ -52,7 +52,7 @@ Retain generic site imagery in unrelated areas when no real photo is a better fi
 
 ## Completion status
 
-- `Talk with our pharmacy team`: `plan/gallery/talk-with-our-team.mp4` is a byte-for-byte copy of the supplied video. It is used muted, autoplay, loop, and playsinline with controls; `gallery-consultation-poster.jpg` is a representative still at 6 seconds, with `gallery-counter-consultation-original.jpg` as the failure/reduced-motion fallback. Sampled frames at 0, 2, 4, 6, and 8 seconds show a steady portrait consultation across the counter without disruptive cuts.
+- `Talk with our pharmacy team`: `plan/gallery/talk-with-our-team.mp4` is a byte-for-byte copy of the supplied video. It is used muted, autoplay, loop, and playsinline without controls; `gallery-consultation-poster.jpg` is a representative still at 6 seconds, with `gallery-counter-consultation-original.jpg` as the failure/reduced-motion fallback. Sampled frames at 0, 2, 4, 6, and 8 seconds show a steady portrait consultation across the counter without disruptive cuts.
 - `Medicine Advice & Counselling`: `gallery-pharmacist-customer-care-original.jpg`, source unchanged. Both service images use compact CSS media boxes with cover fitting and face-forward positions; responsive styling sets shorter crops on smaller screens.
 - The gallery is titled **Inside Jopeem** and uses an asymmetrical storefront anchor with supporting pharmacy interior and cosmetics views. The displayed sources are `hero-entrance-polished.png`, `gallery-pharmacy-brand-wall-original.jpg`, and `gallery-cosmetics-shelves-original.jpg`. The duplicate brand-wall file is not displayed. The unsupported team card/category and service-space/team claims have been removed; actual service offerings remain unchanged.
 - Visual review was performed using a contact sheet of every `plan/gallery/` candidate and sampled video frames. `node --check app.js` passed. Live desktop/mobile viewport verification remains pending because the browser preview host was unavailable.
@@ -119,3 +119,77 @@ The gallery photos shown are from **Nyanama branch**. Homepage preview now says 
 - **Navigation:** added Gallery to desktop navigation on the home, products, and full-gallery pages. The homepage’s existing mobile menu includes the link; the products and gallery pages expose a compact mobile Gallery link. The full gallery marks Gallery as the current page. Existing Nyanama branch attribution remains on the homepage gallery section and full gallery.
 - **Encoding:** repaired the actual mojibake punctuation and symbols found in `index.html`, including apostrophes, dashes, arrows, quotation marks, bullet separators, the menu chevron, multiplication sign, and check/star icons. A codepoint scan found `products.html` and `products.js` punctuation was already valid UTF-8; earlier PowerShell output had rendered some characters incorrectly. Edited files are saved as UTF-8.
 - **Browser verification limitation:** the Windows computer-use helper failed to activate the Chrome window on both the initial attempt and one fresh-window retry. The page could not be refreshed for desktop/mobile visual inspection or browser-console inspection. HTTP responses and parser behavior were checked directly; visible navigation, rendered product cards/image ordering, and mobile layouts remain to be confirmed in a browser.
+
+## New product-photo batch and catalog expansion (2026-11-27)
+
+The initial 10 product photos have already been matched and integrated as documented above. A second batch has been added to `new images/Products/`; current inventory is 25 files total. The 15 newly added files requiring fresh visual identification and catalog comparison are:
+
+- `IMG-20261126-WA0753.jpg.jpeg`
+- `IMG-20261126-WA0784.jpg.jpeg`
+- `IMG-20261126-WA1808.jpg.jpeg`
+- `IMG-20261126-WA3721.jpg.jpeg`
+- `IMG-20261126-WA4238.jpg.jpeg`
+- `IMG-20261126-WA4551.jpg.jpeg`
+- `IMG-20261126-WA5025.jpg.jpeg`
+- `IMG-20261126-WA5105.jpg.jpeg`
+- `IMG-20261126-WA6294.jpg.jpeg`
+- `IMG-20261126-WA7153.jpg.jpeg`
+- `IMG-20261126-WA7308.jpg.jpeg`
+- `IMG-20261126-WA7398.jpg.jpeg`
+- `IMG-20261126-WA8432.jpg.jpeg`
+- `IMG-20261126-WA8821.jpg.jpeg`
+- `IMG-20261126-WA9441.jpg.jpeg`
+
+For each new file, visually read the package label, then compare it with all existing names in `assets/source-data.md` and the existing verified mappings in `products.js`. If a clearly identified product has no existing matching catalog record, add a new product entry to the right category/group using only identity details confirmed on the package. Do not invent formulation, size, SKU, price, availability, or claims. If identity or catalog classification remains uncertain, record it as unresolved and do not add/show a guessed item.
+
+Archive the new source images without editing originals; record a full mapping/status table for this batch in this plan. Only confirmed exact products receive image links. Keep image-bearing products first in each filtered catalog view, preserving existing category/subgroup/search behavior and stable source order among ties. Document new total/category counts after adding records.
+
+## Nyanama Google Maps / Business Profile location verification
+
+The user requests verification of the Nyanama location using Jopeem Pharmacy's Google Business Profile (Google Maps listing) and correction of the website's map if needed. The current homepage map uses a hard-coded Google Maps embed URL in `index.html` and a directions search link in the Nyanama branch card.
+
+- Identify the official Jopeem Pharmacy Nyanama Google Business Profile / Maps place. Confirm the match using official business name, address/landmark, and listing identity; do not rely on an approximate neighborhood query or guessed coordinates.
+- Update the website's Nyanama map embed and directions target to the verified place/listing. Keep the Nalumunye map choice and branch behavior intact.
+- Record the verified public listing name, address/landmark, Maps URL or place identifier, and what was updated here. If the public listing cannot be reliably distinguished from similar businesses, report the ambiguity and do not guess a new map target.
+- This scope is to verify the public listing and update the website map. Do not edit Google Business Profile information/settings itself.
+- Verify that selecting Nyanama and Nalumunye still swaps the correct map and directions, and the default Nyanama map lands on the verified pharmacy listing.
+
+### Second-batch visual identification and catalog additions (2026-11-27)
+
+All 15 newly supplied package photos were opened individually at readable resolution. Their package labels identify the listed products; none exactly matched an existing catalog item, including the existing Vitabiotics Jointace Omega-3 item (different product). Each clear product was added as a new item to Sundries → General Health & Miscellaneous. Sizes, strengths, and dosage forms are included only where visible on the front of the photographed pack; omitted details were not inferred.
+
+| Source filename | Observed label/product identity | Exact catalog name | Category/group | Confidence | Action/status |
+|---|---|---|---|---|---|
+| `IMG-20261126-WA0753.jpg.jpeg` | Vitabiotics Neurozan; 30 Advanced Tablets | Vitabiotics Neurozan, 30 Advanced Tablets | Sundries / General Health & Miscellaneous | High | New item; exact image attached |
+| `IMG-20261126-WA0784.jpg.jpeg` | Valupak Omega-3 Fish Oil (18:12); 30 capsules | Valupak Omega-3 Fish Oil (18:12), 30 Capsules | Sundries / General Health & Miscellaneous | High | New item; exact image attached |
+| `IMG-20261126-WA1808.jpg.jpeg` | Zandros dietary supplement; fish oil 1200mg, vitamin E 19 I.U.; 20 soft gelatin capsules | Zandros Fish Oil 1200mg with Vitamin E, 20 Soft Gelatin Capsules | Sundries / General Health & Miscellaneous | High | New item; exact image attached |
+| `IMG-20261126-WA3721.jpg.jpeg` | Vitabiotics Neuromind Original; 30 tablets | Vitabiotics Neuromind Original, 30 Tablets | Sundries / General Health & Miscellaneous | High | New item; exact image attached |
+| `IMG-20261126-WA4238.jpg.jpeg` | Vitabiotics Visionace Original with Bilberry; pack size/form not readable on photographed face | Vitabiotics Visionace Original with Bilberry | Sundries / General Health & Miscellaneous | High for identity; pack details not visible | New item; exact image attached; no size/form inferred |
+| `IMG-20261126-WA4551.jpg.jpeg` | Good Omega Fish Oil 1000mg; 1 × 10 softgel capsules | Good Omega Fish Oil 1000mg, 10 Softgel Capsules | Sundries / General Health & Miscellaneous | High | New item; exact image attached |
+| `IMG-20261126-WA5025.jpg.jpeg` | NeoCell Grassfed Collagen Peptides + Vitamin C & Biotin; 6000mg per serving; 180 tablets | NeoCell Grassfed Collagen Peptides with Vitamin C & Biotin, 180 Tablets | Sundries / General Health & Miscellaneous | High | New item; exact image attached |
+| `IMG-20261126-WA5105.jpg.jpeg` | Doctor's Choice Replenish+ Plant-Based; 30 veggie capsules; package mentions SelenoExcell Selenium and organic Moringa oleifera | Doctor's Choice Replenish+ Plant-Based, 30 Veggie Capsules | Sundries / General Health & Miscellaneous | High | New item; exact image attached |
+| `IMG-20261126-WA6294.jpg.jpeg` | Five Oceans Ultimate Omega Plus Multivitamins; 30 softgels | Five Oceans Ultimate Omega Plus Multivitamins, 30 Softgels | Sundries / General Health & Miscellaneous | High | New item; exact image attached |
+| `IMG-20261126-WA7153.jpg.jpeg` | Denk Brain Active nutrient complex; 30 shown; dosage form not stated on photographed face | Denk Brain Active, 30 | Sundries / General Health & Miscellaneous | High for identity; dosage form unspecified | New item; exact image attached; form not inferred |
+| `IMG-20261126-WA7308.jpg.jpeg` | WelTek Omega high-strength Omega 3 fatty acids; 30 softgels | WelTek Omega 3 Fatty Acids, 30 Softgels | Sundries / General Health & Miscellaneous | High | New item; exact image attached |
+| `IMG-20261126-WA7398.jpg.jpeg` | Vitabiotics Ultra Omega 3·6·9, 3-in-1 Formula; pack size/form not visible | Vitabiotics Ultra Omega 3-6-9 3-in-1 Formula | Sundries / General Health & Miscellaneous | High for identity; pack details not visible | New item; exact image attached; no size/form inferred |
+| `IMG-20261126-WA8432.jpg.jpeg` | Seven Seas Omega-3 Fish Oil Plus Cod Liver Oil; 60 capsules; 480mg fish oil / 120mg Omega-3 printed | Seven Seas Cod Liver Oil, 60 Capsules | Sundries / General Health & Miscellaneous | High | New item; exact image attached |
+| `IMG-20261126-WA8821.jpg.jpeg` | Hovid Omega-3 1000mg molecularly distilled fish oil; 18% EPA, 12% DHA; 60 softgels | Hovid Omega-3 1000mg, 60 Softgels | Sundries / General Health & Miscellaneous | High | New item; exact image attached |
+| `IMG-20261126-WA9441.jpg.jpeg` | NeoCell Super Collagen+C; Type 1 & 3, Vitamin C; 6g collagen per serving; 250 tablets | NeoCell Super Collagen+C Type 1 & 3, 250 Tablets | Sundries / General Health & Miscellaneous | High | New item; exact image attached |
+
+The 15 source files were copied byte-for-byte to `plan/products/` and the archived copies are also the serving URLs used by the catalog. Product listings in `assets/source-data.md` now total 7,316 items: Medicine 6,817; Sundries 244; Cosmetics 169; Diagnostics 46; Medical Devices 40. The Sundries General Health & Miscellaneous group now has 89 entries. The four parsed web-catalog categories total 499 products (244 + 169 + 46 + 40). Verified-image sorting in `app.js` and `products.js` remains after the current filters/search and uses original filtered index as its stable tie-breaker; products without verified images retain their category-themed placeholders. The existing product-image CSS uses `object-fit: contain`.
+
+### Nyanama Google Maps listing check (2026-11-27)
+
+Public business and directory sources associate **Jopeem Pharmacy and Health Care Center** with **Nyanama Trading Centre**, and the current directory also lists the Nalumunye Road, Lebron Shopping Centre branch separately. Medpages describes the Nyanama address as **Nyanama Trading Centre, Nyanama Road, Central Kampala**, while noting that its provider information has not been fully verified ([Medpages listing](https://www.medpages.info/sf/index.php?orgcode=318709&page=organisation)). The Uganda Health Care Directory 2025–26 lists Jopeem Pharmacy and Health Care Center at **Nyanama Trading Center** and gives phone `0702 774 852`, matching the website's Nyanama contact; it separately identifies the Nalumunye branch ([directory entry](https://www.zaddockassociates.com/public/flipbooks/UHD-2025/files/basic-html/page241.html)).
+
+The official Google Maps/Business Profile place could not be confirmed. Search indexing also surfaced a third-party Cybo result titled “Jopeem Pharmacy” in Nyanama with a different phone number (`+256 782 085703`), and it did not expose a Maps place ID/CID or an official Google Maps share URL ([Cybo directory result](https://www.cybo.com/UG/mengo-uganda/pharmacies-and-drug-stores/?p=4)). The computer-use browser could not start in this environment (`failed to write kernel assets`), so the Google Maps place itself could not be inspected. Because the public listing identity remains ambiguous, the website map and directions have **not** been changed.
+
+The existing Nyanama map targets remain the hard-coded Google Maps embed in `index.html` and the generic directions search for `Jopeem Pharmacy Nyanama Trading Centre`; `app.js` still dynamically sets Nyanama directions to the existing coordinates `0.27092, 32.55366`. The existing Nalumunye embed and branch target remain intact. Code review confirms Nyanama is the default branch and both branch buttons continue to call the shared map-switch behavior, but an interactive browser verification was unavailable. To replace the Nyanama target confidently, obtain the official Google Maps **Share** link or visible Place ID/CID from the listing owner and confirm its Nyanama address/landmark and official contact details.
+
+### Verification performed for the second batch
+
+- Individually inspected all 15 new product photos at readable resolution and compared their visible product identities against the complete catalog text and verified image-name maps.
+- Confirmed that all 15 added names were absent as exact catalog entries before addition; retained the prior 10 mappings.
+- Copied source files unchanged into `plan/products/`; SHA-256 comparisons confirmed all 15 archive copies match their originals. All 15 product URLs returned HTTP 200 from a local static server and their served bytes matched the originals. `products.html`, `products.js`, `assets/source-data.md`, and `index.html` also returned HTTP 200.
+- `node --check app.js` and `node --check products.js` passed. A catalog parse confirmed Cosmetics 169, Sundries 244, Diagnostics 46, and Medical Devices 40 (499 browsable items); all 15 new names exist in the source catalog and in both verified-image maps.
+- Browser checks for product ordering and branch map switching remain unavailable due to the computer-use initialization error; no desktop/mobile visual result is claimed.
